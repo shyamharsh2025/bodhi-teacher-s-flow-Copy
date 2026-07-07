@@ -1,0 +1,615 @@
+{
+  "meta": {
+    "name": "Bodhi - Focus Sprint Setup Screen",
+    "purpose": "Prompt/spec for Figma Make to recreate an accurate, editable, interactive mobile screen.",
+    "version": "1.0"
+  },
+  "screen": {
+    "name": "Focus Sprint - What are you working on?",
+    "device": "iPhone portrait",
+    "frame": {
+      "width": 390,
+      "height": 844,
+      "safe_area": true
+    },
+    "intent": "This is the first setup screen of Focus Sprint. The user enters the task they want to focus on, chooses the session length, and starts the focus sprint.",
+    "must_match_reference": true
+  },
+  "design_language": {
+    "app": "Bodhi",
+    "style": "premium wellness + productivity app",
+    "theme": "light mode",
+    "mood": "calm, focused, clean, polished, soft, slightly futuristic",
+    "visual_quality": "high fidelity, app-store-ready, not wireframe",
+    "key_characteristics": [
+      "soft lavender-white background",
+      "large rounded white cards",
+      "subtle purple glow shadows",
+      "clean bold typography",
+      "spacious layout",
+      "purple primary actions",
+      "floating bottom navigation",
+      "gentle decorative abstract wave in header area"
+    ],
+    "do_not_include": [
+      "no orb",
+      "no step indicator numbers",
+      "no focus boost toggle",
+      "no extra recommendation copy",
+      "no meditation or breathing content",
+      "no dark mode",
+      "no extra cards",
+      "no gamified badges"
+    ]
+  },
+  "tokens": {
+    "colors": {
+      "background_top": "#FAFBFF",
+      "background_mid": "#F3F1FF",
+      "background_bottom": "#F8F7FF",
+      "card": "#FFFFFF",
+      "card_border": "#F0EDFF",
+      "primary": "#6A4CF6",
+      "primary_dark": "#5537E8",
+      "primary_light": "#8973FF",
+      "primary_soft": "#EEEAFE",
+      "text_primary": "#10132F",
+      "text_secondary": "#626780",
+      "text_muted": "#9A9DB5",
+      "inactive_icon": "#6F7284",
+      "divider": "#E5E1F4",
+      "input_border": "#DED8FF",
+      "white_translucent": "rgba(255,255,255,0.86)"
+    },
+    "gradients": {
+      "screen_background": {
+        "type": "linear",
+        "direction": "top_to_bottom",
+        "stops": [
+          {
+            "color": "#FAFBFF",
+            "position": 0
+          },
+          {
+            "color": "#F2F0FF",
+            "position": 0.45
+          },
+          {
+            "color": "#F8F7FF",
+            "position": 1
+          }
+        ]
+      },
+      "primary_button": {
+        "type": "linear",
+        "direction": "left_to_right",
+        "stops": [
+          {
+            "color": "#5F39F5",
+            "position": 0
+          },
+          {
+            "color": "#7B5DF7",
+            "position": 0.52
+          },
+          {
+            "color": "#613CF2",
+            "position": 1
+          }
+        ]
+      },
+      "chat_button": {
+        "type": "radial",
+        "stops": [
+          {
+            "color": "#8B76FF",
+            "position": 0
+          },
+          {
+            "color": "#5F39F5",
+            "position": 1
+          }
+        ]
+      }
+    },
+    "typography": {
+      "font_family": "Inter",
+      "status_time": {
+        "size": 16,
+        "weight": 800,
+        "color": "#000000"
+      },
+      "hero_title": {
+        "size": 34,
+        "weight": 800,
+        "line_height": 41,
+        "letter_spacing": -0.5,
+        "color": "#10132F"
+      },
+      "hero_subtitle": {
+        "size": 17,
+        "weight": 500,
+        "line_height": 27,
+        "color": "#626780"
+      },
+      "card_title": {
+        "size": 20,
+        "weight": 760,
+        "line_height": 26,
+        "color": "#10132F"
+      },
+      "placeholder": {
+        "size": 18,
+        "weight": 500,
+        "color": "#9A9DB5"
+      },
+      "duration_number": {
+        "size": 28,
+        "weight": 800,
+        "line_height": 30
+      },
+      "duration_label": {
+        "size": 15,
+        "weight": 650,
+        "line_height": 20
+      },
+      "cta": {
+        "size": 20,
+        "weight": 800,
+        "color": "#FFFFFF"
+      },
+      "nav_label": {
+        "size": 12,
+        "weight": 650
+      }
+    },
+    "radii": {
+      "round_button": 999,
+      "card": 24,
+      "input": 17,
+      "duration_option": 16,
+      "primary_cta": 17,
+      "nav": 36
+    },
+    "shadows": {
+      "round_button": "0px 10px 24px rgba(85,65,180,0.14)",
+      "card": "0px 16px 36px rgba(85,65,180,0.10)",
+      "input": "0px 8px 22px rgba(85,65,180,0.08)",
+      "primary_cta": "0px 16px 34px rgba(93,61,245,0.28)",
+      "bottom_nav": "0px 16px 40px rgba(85,65,180,0.14)",
+      "center_chat": "0px 12px 30px rgba(93,61,245,0.36)"
+    }
+  },
+  "layout": {
+    "coordinate_system": "absolute positions inside 390x844 frame",
+    "horizontal_padding": 20,
+    "main_content_width": 350,
+    "background": {
+      "fill": "screen_background gradient"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "frame",
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "fill": "screen_background gradient"
+    },
+    {
+      "id": "decorative_wave",
+      "type": "decorative_vector_or_blurred_shape",
+      "x": 200,
+      "y": 120,
+      "w": 210,
+      "h": 105,
+      "description": "Subtle translucent lavender flowing ribbon/wave with faint white highlights and tiny sparkles. Place behind header text, mostly on right side. Should be very soft and low contrast.",
+      "colors": [
+        "#DCD7FF",
+        "#FFFFFF",
+        "#8E7CFF"
+      ],
+      "opacity": 0.38,
+      "blur": 2
+    },
+    {
+      "id": "status_bar",
+      "type": "ios_status_bar",
+      "x": 38,
+      "y": 18,
+      "w": 314,
+      "h": 24,
+      "time": "9:41",
+      "icons": [
+        "cellular",
+        "wifi",
+        "battery"
+      ],
+      "color": "#000000"
+    },
+    {
+      "id": "back_button",
+      "type": "icon_button",
+      "x": 20,
+      "y": 58,
+      "w": 46,
+      "h": 46,
+      "shape": "circle",
+      "fill": "#FFFFFF",
+      "icon": "arrow-left",
+      "icon_size": 24,
+      "icon_color": "#6A4CF6",
+      "shadow": "round_button",
+      "interaction": "tap returns to previous screen"
+    },
+    {
+      "id": "analytics_button",
+      "type": "icon_button",
+      "x": 324,
+      "y": 58,
+      "w": 46,
+      "h": 46,
+      "shape": "circle",
+      "fill": "#FFFFFF",
+      "icon": "bar-chart-up",
+      "icon_size": 23,
+      "icon_color": "#6A4CF6",
+      "shadow": "round_button",
+      "interaction": "tap opens focus stats/insights"
+    },
+    {
+      "id": "hero_title",
+      "type": "text",
+      "x": 22,
+      "y": 125,
+      "w": 255,
+      "h": 88,
+      "text": "What are you\nworking on?",
+      "style": "hero_title"
+    },
+    {
+      "id": "hero_subtitle",
+      "type": "text",
+      "x": 22,
+      "y": 225,
+      "w": 255,
+      "h": 56,
+      "text": "Set your intention. We’ll help you\nstay in the zone.",
+      "style": "hero_subtitle"
+    },
+    {
+      "id": "divider",
+      "type": "line",
+      "x": 24,
+      "y": 293,
+      "w": 342,
+      "h": 1,
+      "fill": "#E5E1F4",
+      "opacity": 0.85
+    },
+    {
+      "id": "task_card",
+      "type": "card",
+      "x": 20,
+      "y": 313,
+      "w": 350,
+      "h": 142,
+      "fill": "#FFFFFF",
+      "radius": 24,
+      "shadow": "card",
+      "children": [
+        {
+          "id": "task_card_title",
+          "type": "text",
+          "x": 22,
+          "y": 23,
+          "w": 310,
+          "h": 28,
+          "text": "What task are you focusing on?",
+          "style": "card_title"
+        },
+        {
+          "id": "task_input",
+          "type": "text_input",
+          "x": 20,
+          "y": 70,
+          "w": 310,
+          "h": 58,
+          "fill": "#FFFFFF",
+          "radius": 17,
+          "border": {
+            "color": "#DED8FF",
+            "width": 1.5
+          },
+          "shadow": "input",
+          "leading_icon": {
+            "icon": "pencil",
+            "x": 20,
+            "size": 22,
+            "color": "#6A4CF6"
+          },
+          "placeholder": "e.g., Study Math Chapter 3",
+          "placeholder_style": "placeholder",
+          "interaction": {
+            "tap": "focus input",
+            "keyboard": "open keyboard",
+            "states": [
+              "empty",
+              "typing",
+              "filled"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "duration_card",
+      "type": "card",
+      "x": 20,
+      "y": 477,
+      "w": 350,
+      "h": 154,
+      "fill": "#FFFFFF",
+      "radius": 24,
+      "shadow": "card",
+      "children": [
+        {
+          "id": "duration_title",
+          "type": "text",
+          "x": 22,
+          "y": 24,
+          "w": 310,
+          "h": 28,
+          "text": "How long do you want to focus?",
+          "style": "card_title"
+        },
+        {
+          "id": "duration_options",
+          "type": "horizontal_selector",
+          "x": 20,
+          "y": 75,
+          "w": 310,
+          "h": 66,
+          "gap": 10,
+          "interaction": "single select; selected option updates border and text color",
+          "options": [
+            {
+              "id": "duration_15",
+              "x": 0,
+              "y": 0,
+              "w": 58,
+              "h": 66,
+              "selected": true,
+              "radius": 16,
+              "border": {
+                "color": "#6A4CF6",
+                "width": 1.5
+              },
+              "fill": "#FFFFFF",
+              "number": "15",
+              "label": "min",
+              "number_color": "#6A4CF6",
+              "label_color": "#6A4CF6"
+            },
+            {
+              "id": "duration_25",
+              "x": 68,
+              "y": 0,
+              "w": 58,
+              "h": 66,
+              "selected": false,
+              "radius": 16,
+              "border": {
+                "color": "#E4E0F7",
+                "width": 1.5
+              },
+              "fill": "#FFFFFF",
+              "number": "25",
+              "label": "min",
+              "number_color": "#5F6275",
+              "label_color": "#5F6275"
+            },
+            {
+              "id": "duration_45",
+              "x": 136,
+              "y": 0,
+              "w": 58,
+              "h": 66,
+              "selected": false,
+              "radius": 16,
+              "border": {
+                "color": "#E4E0F7",
+                "width": 1.5
+              },
+              "fill": "#FFFFFF",
+              "number": "45",
+              "label": "min",
+              "number_color": "#5F6275",
+              "label_color": "#5F6275"
+            },
+            {
+              "id": "duration_60",
+              "x": 204,
+              "y": 0,
+              "w": 58,
+              "h": 66,
+              "selected": false,
+              "radius": 16,
+              "border": {
+                "color": "#E4E0F7",
+                "width": 1.5
+              },
+              "fill": "#FFFFFF",
+              "number": "60",
+              "label": "min",
+              "number_color": "#5F6275",
+              "label_color": "#5F6275"
+            },
+            {
+              "id": "duration_custom",
+              "x": 272,
+              "y": 0,
+              "w": 58,
+              "h": 66,
+              "selected": false,
+              "radius": 16,
+              "border": {
+                "color": "#E4E0F7",
+                "width": 1.5
+              },
+              "fill": "#FFFFFF",
+              "icon": "sliders-horizontal",
+              "icon_color": "#5F6275",
+              "label": "Custom",
+              "label_color": "#5F6275",
+              "interaction": "open custom duration picker/modal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "start_button",
+      "type": "button",
+      "x": 20,
+      "y": 672,
+      "w": 350,
+      "h": 58,
+      "radius": 17,
+      "fill": "primary_button gradient",
+      "text": "Start Focus Sprint",
+      "text_style": "cta",
+      "trailing_icon": {
+        "icon": "arrow-right",
+        "size": 27,
+        "color": "#FFFFFF",
+        "x": 315
+      },
+      "shadow": "primary_cta",
+      "interaction": {
+        "tap": "navigate to Focus Sprint screen 2: How do you want to start?",
+        "disabled_state": "optional; disable if task field empty, or allow with generic focus session"
+      }
+    },
+    {
+      "id": "bottom_navigation",
+      "type": "floating_bottom_nav",
+      "x": 17,
+      "y": 764,
+      "w": 356,
+      "h": 68,
+      "fill": "rgba(255,255,255,0.86)",
+      "radius": 36,
+      "background_blur": 20,
+      "shadow": "bottom_nav",
+      "items": [
+        {
+          "id": "nav_today",
+          "label": "Today",
+          "icon": "sun",
+          "x": 42,
+          "active": true,
+          "icon_color": "#6A4CF6",
+          "label_color": "#6A4CF6"
+        },
+        {
+          "id": "nav_explore",
+          "label": "Explore",
+          "icon": "compass",
+          "x": 105,
+          "active": false,
+          "icon_color": "#6F7284",
+          "label_color": "#6F7284"
+        },
+        {
+          "id": "nav_chat_center",
+          "label": "",
+          "icon": "message-circle",
+          "center_action": true,
+          "x": 146,
+          "y": -18,
+          "w": 68,
+          "h": 68,
+          "shape": "circle",
+          "fill": "chat_button radial gradient",
+          "outer_glow": "rgba(106,76,246,0.24)",
+          "icon_color": "#FFFFFF",
+          "interaction": "open Bodhi assistant/chat"
+        },
+        {
+          "id": "nav_sessions",
+          "label": "Sessions",
+          "icon": "timer",
+          "x": 242,
+          "active": false,
+          "icon_color": "#6F7284",
+          "label_color": "#6F7284"
+        },
+        {
+          "id": "nav_journey",
+          "label": "Journey",
+          "icon": "user",
+          "x": 303,
+          "active": false,
+          "icon_color": "#6F7284",
+          "label_color": "#6F7284"
+        }
+      ],
+      "interaction": "tabs are tappable; center chat button is raised and primary"
+    },
+    {
+      "id": "home_indicator",
+      "type": "ios_home_indicator",
+      "x": 128,
+      "y": 836,
+      "w": 134,
+      "h": 5,
+      "radius": 999,
+      "fill": "#000000"
+    }
+  ],
+  "interactive_behavior": {
+    "task_input": {
+      "tap": "keyboard opens",
+      "placeholder": "e.g., Study Math Chapter 3",
+      "filled_example": "Math Assignment – Chapter 3"
+    },
+    "duration_selector": {
+      "default": "15 min",
+      "behavior": "single-select segmented cards",
+      "tap_25": "25 min becomes selected; 15 min becomes inactive",
+      "tap_45": "45 min becomes selected",
+      "tap_60": "60 min becomes selected",
+      "tap_custom": "open custom duration picker/modal"
+    },
+    "start_button": {
+      "tap": "advance to next screen: choose how to start"
+    },
+    "back_button": {
+      "tap": "return to previous screen"
+    },
+    "analytics_button": {
+      "tap": "open focus stats"
+    },
+    "bottom_nav": {
+      "today": "active",
+      "explore": "navigate to Explore",
+      "chat_center": "open assistant/chat",
+      "sessions": "navigate to Sessions",
+      "journey": "navigate to Journey"
+    }
+  },
+  "quality_instructions_for_figma_make": [
+    "Create all UI as editable Figma layers, not as one flat image.",
+    "Use clean auto-layout where appropriate for cards, duration options, and bottom nav.",
+    "Respect the 390x844 mobile frame.",
+    "Keep exact visual hierarchy: hero at top, task card, duration card, CTA, floating bottom nav.",
+    "The decorative wave should be subtle and should not overpower the title.",
+    "Keep cards large, rounded, and airy.",
+    "Keep the primary CTA above the bottom navigation with enough spacing.",
+    "The bottom nav should match the Bodhi home screen style: white floating pill, Today active, center chat button raised.",
+    "Do not add any elements not listed in this JSON."
+  ]
+}

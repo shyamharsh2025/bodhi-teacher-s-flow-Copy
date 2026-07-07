@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+.playwright-mcp/
+.tools/
+.agents/
+
+# Local editor and tool noise
+.vscode/
+.idea/
+*.log
+
+# Environment files
+.env
+.env.*
+!.env.example

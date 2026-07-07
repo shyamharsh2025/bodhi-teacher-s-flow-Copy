@@ -1,0 +1,16 @@
+- generic [ref=e5] [box=0,0,1470,835]:
+  - generic [ref=e6] [box=0,0,1470,835]:
+    - generic [ref=e7] [box=0,0,1470,835]:
+      - generic [ref=e41] [box=0,0,1470,835]
+      - generic [box=0,711,1470,48]
+    - region "Help/zoom toolbar" [ref=e27] [box=0,0,0,0]:
+      - toolbar "Help/zoom toolbar" [ref=e29] [box=1414,719,32,32]
+  - generic [box=0,0,1470,0]:
+    - status [box=0,0,1470,0]
+    - group [ref=e124] [box=719,1618,32,40]:
+      - alert [ref=e126] [box=727,1630,16,16]
+      - alert [ref=e128] [box=727,1630,16,16]
+    - region "Consent Manager" [ref=e130] [box=0,771,1470,64]:
+      - generic [ref=e131] [box=16,787,1146,32]
+      - generic [ref=e133] [box=1178,791,236,24]
+      - button [ref=e137] [box=1422,787,32,32]

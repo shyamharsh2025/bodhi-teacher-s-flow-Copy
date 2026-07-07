@@ -1,0 +1,248 @@
+{
+  "screen_name": "Focus Sprint - Start Ritual Selection",
+  "target_tool": "Figma Make",
+  "platform": "mobile_app",
+  "device_frame": {
+    "width": 393,
+    "height": 852,
+    "safe_area": true,
+    "status_bar": "iOS style, white icons, time 9:41",
+    "bottom_nav": true
+  },
+  "design_intent": "Replicate the attached dark-mode Focus Sprint ritual selection screen with a deeper, more premium navy-black background, glowing violet accents, frosted dark cards, and clean student-friendly Bodhi visual language. The screen should feel calm, focused, immersive, and premium — not like a generic Pomodoro app.",
+  "visual_style": {
+    "mode": "dark",
+    "background": {
+      "type": "deep radial gradient",
+      "base_color": "#030814",
+      "secondary_color": "#071226",
+      "edge_vignette": "#01040B",
+      "description": "Make the background slightly darker than the reference, almost midnight navy/black, but keep subtle blue-violet glow near the center so white text remains readable and premium. Avoid flat black. Add very subtle grain/noise if supported."
+    },
+    "primary_accent": "#7C4DFF",
+    "secondary_accent": "#A891FF",
+    "soft_text": "#B9B8DA",
+    "card_fill": "rgba(10, 18, 36, 0.78)",
+    "card_border": "rgba(124, 77, 255, 0.22)",
+    "selected_border": "#7C4DFF",
+    "selected_glow": "rgba(124, 77, 255, 0.28)",
+    "overall_mood": "premium, calm, focused, ritualistic, subtle sci-fi, Bodhi wellness app"
+  },
+  "typography": {
+    "font_family": "Inter",
+    "title": {
+      "size": 34,
+      "weight": 800,
+      "line_height": 40,
+      "color": "#FFFFFF",
+      "alignment": "center"
+    },
+    "subtitle": {
+      "size": 20,
+      "weight": 500,
+      "line_height": 30,
+      "color": "#B9B8DA",
+      "alignment": "center"
+    },
+    "card_title": {
+      "size": 22,
+      "weight": 800,
+      "line_height": 28,
+      "color": "#FFFFFF"
+    },
+    "card_body": {
+      "size": 19,
+      "weight": 500,
+      "line_height": 28,
+      "color": "#B9B8DA"
+    },
+    "small_label": {
+      "size": 14,
+      "weight": 700,
+      "color": "#201545"
+    },
+    "bottom_nav_label": {
+      "size": 13,
+      "weight": 700,
+      "color": "#AEB3D3"
+    }
+  },
+  "layout": {
+    "padding_horizontal": 28,
+    "top_padding": 44,
+    "vertical_spacing": "generous but compact enough to fit all elements without scroll",
+    "alignment": "centered headline, left-aligned cards",
+    "screen_sections": [
+      "status bar",
+      "top back button and centered screen label",
+      "headline and subtitle",
+      "three option cards",
+      "educational insight card",
+      "bottom navigation"
+    ]
+  },
+  "components": {
+    "back_button": {
+      "position": { "x": 32, "y": 82 },
+      "size": 54,
+      "shape": "circle",
+      "fill": "rgba(19, 29, 52, 0.72)",
+      "border": "rgba(255,255,255,0.06)",
+      "icon": "left arrow",
+      "icon_color": "#FFFFFF",
+      "shadow": "soft dark shadow"
+    },
+    "top_label": {
+      "text": "Start Focus Sprint",
+      "position": "top center around y=98",
+      "font_size": 22,
+      "font_weight": 800,
+      "color": "#FFFFFF"
+    },
+    "headline": {
+      "text": "How do you want to start?",
+      "position": "centered around y=190",
+      "max_width": 340
+    },
+    "subtitle": {
+      "text": "Set your intention. We'll help you stay in the flow.",
+      "position": "below headline, centered",
+      "max_width": 360
+    },
+    "option_cards": [
+      {
+        "id": "start_immediately",
+        "state": "selected",
+        "title": "Start immediately",
+        "description": "Jump into your session",
+        "icon": "filled lightning bolt",
+        "icon_color": "#7C4DFF",
+        "selection_control": "violet circular checkmark on right",
+        "position": { "x": 28, "y": 308 },
+        "size": { "width": 337, "height": 104 },
+        "radius": 24,
+        "fill": "rgba(10, 18, 36, 0.82)",
+        "border": "1.5px solid #7C4DFF",
+        "shadow": "violet outer glow, subtle"
+      },
+      {
+        "id": "breathwork",
+        "state": "unselected",
+        "title": "2 min Breathwork",
+        "description": "Quick breathing to\nclear your mind",
+        "badge": "Recommended",
+        "icon": "three horizontal flowing breath lines",
+        "icon_color": "#A891FF",
+        "selection_control": "empty circular radio on right",
+        "position": { "x": 28, "y": 438 },
+        "size": { "width": 337, "height": 126 },
+        "radius": 24,
+        "fill": "rgba(10, 18, 36, 0.74)",
+        "border": "1px solid rgba(153, 164, 211, 0.16)",
+        "shadow": "soft dark shadow"
+      },
+      {
+        "id": "meditation",
+        "state": "unselected",
+        "title": "5 min Meditation",
+        "description": "Deeper preparation for\nbetter focus",
+        "badge": "Recommended",
+        "icon": "outline lotus",
+        "icon_color": "#8B6CFF",
+        "selection_control": "empty circular radio on right",
+        "position": { "x": 28, "y": 590 },
+        "size": { "width": 337, "height": 126 },
+        "radius": 24,
+        "fill": "rgba(10, 18, 36, 0.74)",
+        "border": "1px solid rgba(153, 164, 211, 0.16)",
+        "shadow": "soft dark shadow"
+      }
+    ],
+    "icon_containers": {
+      "size": 60,
+      "shape": "circle",
+      "fill": "rgba(9, 15, 30, 0.55)",
+      "border": "rgba(145, 125, 255, 0.14)",
+      "placement": "left side of each card, vertically centered"
+    },
+    "recommended_badge": {
+      "shape": "pill",
+      "height": 24,
+      "padding_horizontal": 12,
+      "fill": "linear-gradient(90deg, #BFAAFF, #D6CCFF)",
+      "text_color": "#22164E",
+      "font_size": 13,
+      "font_weight": 800,
+      "placement": "to the right of the option title, aligned baseline/top"
+    },
+    "info_card": {
+      "text": "Starting with breathwork or meditation\ncan improve your focus and retention.",
+      "icon": "brain outline with plus mark",
+      "icon_color": "#8B6CFF",
+      "position": { "x": 28, "y": 744 },
+      "size": { "width": 337, "height": 86 },
+      "radius": 22,
+      "fill": "rgba(10, 18, 36, 0.72)",
+      "border": "1px solid rgba(153, 164, 211, 0.14)",
+      "text_style": "18px medium, #B9B8DA, line-height 27",
+      "description": "Keep this card visually lighter than option cards. It is an insight, not a CTA."
+    },
+    "bottom_navigation": {
+      "position": "fixed bottom, y around 780 to bottom safe area depending on canvas height",
+      "height": 84,
+      "margin_horizontal": 28,
+      "radius": 30,
+      "fill": "rgba(12, 20, 38, 0.88)",
+      "border": "1px solid rgba(255,255,255,0.08)",
+      "shadow": "soft dark floating shadow",
+      "items": [
+        { "label": "Today", "icon": "sun", "state": "inactive" },
+        { "label": "Sessions", "icon": "clock", "state": "inactive" },
+        { "label": "", "icon": "sparkle", "state": "active_center", "button_fill": "linear-gradient(135deg, #7C4DFF, #6B35EF)", "button_size": 72 },
+        { "label": "Explore", "icon": "compass", "state": "inactive" },
+        { "label": "Journey", "icon": "trending up", "state": "inactive" }
+      ]
+    }
+  },
+  "interaction_requirements": {
+    "option_selection": "Tapping any option should select it, show violet border and circular checkmark, and unselect the others.",
+    "start_immediately": "Selected by default.",
+    "breathwork": "When selected, this should route to a 2-minute breathwork screen before focus timer.",
+    "meditation": "When selected, this should route to a 5-minute meditation preparation screen before focus timer.",
+    "bottom_nav": "Keep bottom nav visible and consistent with app language. Center sparkle button should feel active but not overpowering.",
+    "back_button": "Back button returns to previous Focus Sprint setup screen."
+  },
+  "animation_guidance": {
+    "screen_entry": "Fade in headline and subtitle, then stagger option cards upward by 8px with 180ms delay each.",
+    "selection_change": "Selected card border and checkmark animate with 180ms ease-out. Add subtle violet glow on selected card only.",
+    "background": "Very slow subtle ambient blue-violet gradient movement if supported. No distracting animation."
+  },
+  "accuracy_notes": [
+    "Do not use the existing light-mode screen styling for this screen. Replace it with the dark-mode reference style.",
+    "Make the background darker than the reference image, but preserve contrast and premium readability.",
+    "Keep card spacing, icon scale, type hierarchy, rounded corners, and purple glow very close to the reference.",
+    "Avoid childish gradients, overly bright neon, heavy glass blur, or generic Material UI cards.",
+    "The screen should look like a polished production mobile app screen, not an AI-generated mockup."
+  ],
+  "copy": {
+    "top_label": "Start Focus Sprint",
+    "headline": "How do you want to start?",
+    "subtitle": "Set your intention. We'll help you stay in the flow.",
+    "cards": [
+      { "title": "Start immediately", "description": "Jump into your session" },
+      { "title": "2 min Breathwork", "description": "Quick breathing to clear your mind", "badge": "Recommended" },
+      { "title": "5 min Meditation", "description": "Deeper preparation for better focus", "badge": "Recommended" }
+    ],
+    "insight": "Starting with breathwork or meditation can improve your focus and retention.",
+    "bottom_nav": ["Today", "Sessions", "", "Explore", "Journey"]
+  },
+  "negative_prompt": [
+    "Do not create a white or light background.",
+    "Do not make the screen look like a generic productivity timer.",
+    "Do not overuse blur or glow.",
+    "Do not make the cards too tall or text too small.",
+    "Do not remove the bottom nav.",
+    "Do not use random icons different from lightning, breath lines, lotus, brain, sun, clock, sparkle, compass, and journey trend.",
+    "Do not crop important elements near the bottom safe area."
+  ]
+}

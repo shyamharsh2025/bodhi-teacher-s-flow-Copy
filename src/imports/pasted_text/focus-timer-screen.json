@@ -1,0 +1,382 @@
+{
+  "screen_name": "Focus Sprint - Active Timer Screen",
+  "screen_type": "mobile_app_screen",
+  "platform": "iOS",
+  "aspect_ratio": "9:16",
+  "target_size": {
+    "width": 390,
+    "height": 844
+  },
+  "design_goal": "Create a premium dark-mode Focus Sprint timer screen for the Bodhi app. This screen comes after the pre-focus breathwork screen and represents the active deep work session. It should feel calm, immersive, premium, focused, and visually consistent with the previous dark Focus Sprint screens. The width and proportions should match the provided reference closely. Height spacing should be slightly more breathable so the layout does not feel cramped vertically.",
+  "visual_style": {
+    "theme": "dark premium wellness productivity",
+    "mood": "focused, calm, premium, immersive, minimal, futuristic but not flashy",
+    "background": {
+      "base_color": "#020713",
+      "gradient": "very dark navy-black background with subtle indigo-violet undertones",
+      "details": [
+        "Use a darker background than the earlier timer version",
+        "Add subtle vertical light streaks in deep blue and violet to match the other Focus Sprint dark screens",
+        "Keep the background premium and atmospheric, not noisy",
+        "Maintain strong contrast for text readability",
+        "Add subtle glow behind the timer ring but do not over-brighten the background"
+      ]
+    },
+    "accent_colors": {
+      "primary_purple": "#6D5BFF",
+      "electric_violet": "#8A76FF",
+      "soft_lavender": "#B7AEFF",
+      "glow_purple": "#7C5CFF",
+      "white": "#FFFFFF",
+      "muted_text": "#B7B4D8",
+      "secondary_text": "#8F8AAE",
+      "card_fill": "rgba(10, 16, 35, 0.76)",
+      "card_border": "rgba(139, 124, 255, 0.22)"
+    },
+    "typography": {
+      "font_family": "Inter",
+      "heading": "clean, bold, premium, high contrast",
+      "body": "soft, readable, medium weight",
+      "timer_number": "large, bold, minimal, high-contrast white"
+    }
+  },
+  "layout": {
+    "safe_area": true,
+    "padding": {
+      "horizontal": 24,
+      "top": 26,
+      "bottom": 24
+    },
+    "alignment": "centered with clean vertical stacking",
+    "scroll": false,
+    "spacing_notes": [
+      "Keep width proportions as shown in the reference",
+      "Increase vertical breathing room slightly between major sections",
+      "Ensure the timer ring, music card, time adjust row, and improve-focus card do not feel cramped"
+    ]
+  },
+  "elements": [
+    {
+      "type": "status_bar",
+      "position": "top",
+      "content": {
+        "time": "9:41",
+        "right_icons": ["cellular", "wifi", "battery"]
+      },
+      "style": {
+        "color": "#FFFFFF",
+        "opacity": 0.95
+      }
+    },
+    {
+      "type": "top_navigation",
+      "position": {
+        "top": 72,
+        "left": 24,
+        "right": 24
+      },
+      "elements": [
+        {
+          "type": "circular_icon_button",
+          "role": "back",
+          "icon": "arrow-left",
+          "size": 52,
+          "position": "left",
+          "background": "rgba(255,255,255,0.055)",
+          "border": "rgba(255,255,255,0.06)",
+          "icon_color": "#FFFFFF"
+        },
+        {
+          "type": "circular_icon_button",
+          "role": "close",
+          "icon": "x",
+          "size": 52,
+          "position": "right",
+          "background": "rgba(255,255,255,0.055)",
+          "border": "rgba(255,255,255,0.06)",
+          "icon_color": "#FFFFFF"
+        }
+      ]
+    },
+    {
+      "type": "heading_block",
+      "position": {
+        "top": 150,
+        "center_x": true
+      },
+      "content": {
+        "title": "Math Assignment – Chapter 3",
+        "subtitle": "45 min session"
+      },
+      "style": {
+        "title_font_size": 29,
+        "title_font_weight": 800,
+        "title_color": "#FFFFFF",
+        "title_line_height": 1.15,
+        "subtitle_font_size": 22,
+        "subtitle_font_weight": 600,
+        "subtitle_color": "#B7AEFF",
+        "subtitle_line_height": 1.3,
+        "text_align": "center",
+        "gap": 12
+      }
+    },
+    {
+      "type": "timer_ring",
+      "position": {
+        "top": 246,
+        "center_x": true
+      },
+      "size": {
+        "width": 300,
+        "height": 300
+      },
+      "description": "A large glowing circular countdown ring. This is not a filled orb. It is a hollow circular progress ring with premium neon-purple glow and a slightly brighter active progress segment near the top-right. The centre should remain empty and dark.",
+      "style": {
+        "shape": "perfect circle ring",
+        "ring_thickness": 12,
+        "ring_color": "#6D5BFF",
+        "progress_segment_color": "#D8CCFF",
+        "background_center": "transparent/dark navy",
+        "outer_glow": "0 0 40px rgba(109,91,255,0.45), 0 0 80px rgba(109,91,255,0.18)",
+        "inner_glow": "subtle inner violet glow",
+        "animation": "very subtle pulse/glow breathing animation, not distracting"
+      },
+      "inner_content": [
+        {
+          "type": "text",
+          "text": "44:59",
+          "font_size": 64,
+          "font_weight": 800,
+          "color": "#FFFFFF",
+          "position": "center",
+          "y_offset": -6
+        },
+        {
+          "type": "inline_icon_text",
+          "icon": "lock",
+          "text": "Stay locked in",
+          "icon_color": "#7D6CFF",
+          "text_color": "#B7B4D8",
+          "font_size": 19,
+          "font_weight": 600,
+          "position": "center",
+          "y_offset": 68,
+          "gap": 10
+        }
+      ]
+    },
+    {
+      "type": "music_card",
+      "position": {
+        "top": 570,
+        "left": 24,
+        "right": 24
+      },
+      "size": {
+        "height": 96
+      },
+      "style": {
+        "background": "rgba(9, 14, 32, 0.78)",
+        "border": "1px solid rgba(139,124,255,0.22)",
+        "border_radius": 22,
+        "shadow": "0 18px 40px rgba(0,0,0,0.28)"
+      },
+      "content": {
+        "left_icon": {
+          "type": "music-note",
+          "size": 42,
+          "color": "#7D6CFF",
+          "x": 26,
+          "y": 28
+        },
+        "title": {
+          "text": "Deep Focus · Instrumental",
+          "font_size": 20,
+          "font_weight": 800,
+          "color": "#FFFFFF",
+          "x": 84,
+          "y": 24
+        },
+        "subtitle": {
+          "text": "Low music",
+          "font_size": 17,
+          "font_weight": 500,
+          "color": "#B7B4D8",
+          "x": 84,
+          "y": 56
+        },
+        "right_button": {
+          "type": "circular_button",
+          "icon": "pause",
+          "size": 56,
+          "background": "rgba(255,255,255,0.06)",
+          "icon_color": "#FFFFFF",
+          "x": 318,
+          "y": 20
+        }
+      }
+    },
+    {
+      "type": "time_adjust_section",
+      "position": {
+        "top": 704,
+        "left": 24,
+        "right": 24
+      },
+      "description": "Three-column layout: minus button on left, session time in center, plus button on right. Increase vertical air slightly compared to a tighter layout.",
+      "style": {
+        "alignment": "horizontal"
+      },
+      "content": [
+        {
+          "type": "adjust_control",
+          "side": "left",
+          "button": {
+            "shape": "circle",
+            "size": 68,
+            "background": "rgba(255,255,255,0.055)",
+            "border": "1px solid rgba(255,255,255,0.05)",
+            "icon": "minus",
+            "icon_color": "#FFFFFF",
+            "icon_size": 28
+          },
+          "label": "-10 min",
+          "label_style": {
+            "font_size": 16,
+            "font_weight": 500,
+            "color": "#B7B4D8",
+            "margin_top": 12,
+            "text_align": "center"
+          }
+        },
+        {
+          "type": "session_time_center",
+          "primary_text": "45:00",
+          "secondary_text": "Session time",
+          "tertiary_text": "Edit time",
+          "style": {
+            "primary_font_size": 34,
+            "primary_font_weight": 800,
+            "primary_color": "#FFFFFF",
+            "secondary_font_size": 17,
+            "secondary_font_weight": 500,
+            "secondary_color": "#B7B4D8",
+            "tertiary_font_size": 17,
+            "tertiary_font_weight": 700,
+            "tertiary_color": "#7D6CFF",
+            "text_align": "center",
+            "gap": 6
+          }
+        },
+        {
+          "type": "adjust_control",
+          "side": "right",
+          "button": {
+            "shape": "circle",
+            "size": 68,
+            "background": "rgba(255,255,255,0.055)",
+            "border": "1px solid rgba(255,255,255,0.05)",
+            "icon": "plus",
+            "icon_color": "#FFFFFF",
+            "icon_size": 28
+          },
+          "label": "+10 min",
+          "label_style": {
+            "font_size": 16,
+            "font_weight": 500,
+            "color": "#B7B4D8",
+            "margin_top": 12,
+            "text_align": "center"
+          }
+        }
+      ]
+    },
+    {
+      "type": "secondary_card",
+      "position": {
+        "top": 830,
+        "left": 24,
+        "right": 24
+      },
+      "size": {
+        "height": 104
+      },
+      "style": {
+        "background": "rgba(9, 14, 32, 0.78)",
+        "border": "1px solid rgba(139,124,255,0.22)",
+        "border_radius": 22,
+        "shadow": "0 18px 40px rgba(0,0,0,0.28)"
+      },
+      "content": {
+        "left_icon": {
+          "type": "sparkle-star",
+          "size": 36,
+          "color": "#F0C7FF",
+          "glow": "soft violet-pink glow",
+          "x": 24,
+          "y": 34
+        },
+        "title": {
+          "text": "Improve your focus",
+          "font_size": 20,
+          "font_weight": 800,
+          "color": "#FFFFFF",
+          "x": 76,
+          "y": 26
+        },
+        "subtitle": {
+          "text": "Tips & tools to go deeper",
+          "font_size": 17,
+          "font_weight": 500,
+          "color": "#B7B4D8",
+          "x": 76,
+          "y": 58
+        },
+        "right_icon": {
+          "type": "chevron-right",
+          "size": 28,
+          "color": "#FFFFFF",
+          "x": 326,
+          "y": 38
+        }
+      }
+    }
+  ],
+  "copy": {
+    "title": "Math Assignment – Chapter 3",
+    "subtitle": "45 min session",
+    "timer": "44:59",
+    "lock_text": "Stay locked in",
+    "music_title": "Deep Focus · Instrumental",
+    "music_subtitle": "Low music",
+    "time_value": "45:00",
+    "time_label": "Session time",
+    "edit_time": "Edit time",
+    "minus_label": "-10 min",
+    "plus_label": "+10 min",
+    "improve_title": "Improve your focus",
+    "improve_subtitle": "Tips & tools to go deeper"
+  },
+  "important_design_constraints": [
+    "Keep the background darker than the earlier version so it matches the other Focus Sprint pages.",
+    "Do not use a filled orb here; use a hollow glowing progress ring.",
+    "The screen should feel calmer and less meditative than the breathwork screen.",
+    "Preserve the premium Bodhi visual language: deep navy-black background, subtle vertical light streaks, glowing purple accents, rounded cards, clean modern typography.",
+    "Keep width proportions close to the reference.",
+    "Slightly loosen vertical spacing so the screen breathes better in height.",
+    "Do not add bottom navigation.",
+    "Do not make the UI look like a generic productivity app or neon gaming UI.",
+    "Maintain excellent readability and a polished premium aesthetic."
+  ],
+  "interaction_notes": {
+    "back_button": "Returns to the previous Focus Sprint screen.",
+    "close_button": "Exits the Focus Sprint flow.",
+    "timer_ring": "Acts as the session progress indicator.",
+    "pause_button": "Pauses or resumes the background music.",
+    "minus_button": "Reduces the session time by 10 minutes.",
+    "plus_button": "Increases the session time by 10 minutes.",
+    "edit_time": "Allows custom duration selection.",
+    "improve_focus_card": "Opens focus tips or supportive tools."
+  }
+}

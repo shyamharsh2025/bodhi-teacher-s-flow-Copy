@@ -1,0 +1,128 @@
+{
+  "name": "Bodhi Home Design System",
+  "version": "2026-05-03",
+  "sourceFrames": {
+    "home": {
+      "figmaFileKey": "Op7weoraH3MOOT7oxkAeAx",
+      "nodeId": "2037:7048",
+      "name": "Refined Home Screen"
+    },
+    "emptyHome": {
+      "figmaFileKey": "Op7weoraH3MOOT7oxkAeAx",
+      "nodeId": "2052:31",
+      "name": "Refined Empty Case Home Screen"
+    }
+  },
+  "typography": {
+    "fontFamily": "Inter, sans-serif",
+    "scalePx": [10, 12, 14, 18, 24],
+    "roles": {
+      "greeting": { "fontSize": 24, "lineHeight": 32, "fontWeight": 700, "letterSpacing": 0 },
+      "sectionTitle": { "fontSize": 18, "lineHeight": 28, "fontWeight": 700, "letterSpacing": 0 },
+      "cardTitle": { "fontSize": 14, "lineHeight": 20, "fontWeight": 700, "letterSpacing": 0 },
+      "body": { "fontSize": 12, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0 },
+      "microLabel": { "fontSize": 10, "lineHeight": 12, "fontWeight": 700, "letterSpacing": 0.4, "textTransform": "uppercase" }
+    }
+  },
+  "colors": {
+    "background": "#FFFFFF",
+    "textPrimary": "#2D2E34",
+    "textSecondary": "#5A5B62",
+    "primaryPurple": "#5840D4",
+    "deepPurple": "#544BBB",
+    "softPurple": "#9A94FF",
+    "cyanBlue": "#0099BF",
+    "surface": "#FFFFFF",
+    "surfaceBorder": "#E8E7F1",
+    "mutedCircle": "#D9D9D9",
+    "warmPlaceholder": "#D2BE9F",
+    "featurePlaceholder": "#A59D94",
+    "progressTrack": "#E8E7F1"
+  },
+  "gradients": {
+    "dopameter": "linear-gradient(108.358deg, rgb(88, 64, 212) 3.9747%, rgb(0, 153, 191) 111.33%)",
+    "primaryButton": "linear-gradient(8.34389deg, rgb(84, 75, 187) 0%, rgb(154, 148, 255) 100%)",
+    "streakToday": "linear-gradient(135deg, #544BBB 0%, #9A94FF 100%)",
+    "progress": "linear-gradient(152.195deg, rgb(88, 64, 212) 3.9747%, rgb(0, 153, 191) 111.33%)"
+  },
+  "spacing": {
+    "screenGutter": 24,
+    "headerTopPadding": 16,
+    "sectionGap": 28,
+    "cardInnerPadding": 16,
+    "dopameterHorizontalPadding": 24,
+    "bottomNavInset": 16
+  },
+  "radii": {
+    "card": 22,
+    "bottomNav": 32,
+    "pill": 999,
+    "avatar": 999,
+    "weekdayCircle": 18
+  },
+  "shadows": {
+    "smallControl": "0px 6px 16px 0px rgba(84,75,187,0.07)",
+    "card": "0px 8px 22px 0px rgba(84,75,187,0.10)",
+    "streakCard": "0px 8px 24px 0px rgba(84,75,187,0.08)",
+    "dopameter": "0px 10px 26px 0px rgba(84,75,187,0.16)",
+    "bottomNav": "0px 12px 32px 0px rgba(84,75,187,0.12)"
+  },
+  "components": {
+    "streakCard": {
+      "outerMarginX": 24,
+      "padding": { "x": 16, "top": 16, "bottom": 16 },
+      "weekdayCircleSize": 36,
+      "arrowSize": 20
+    },
+    "dopameterCard": {
+      "height": 128,
+      "radius": 22,
+      "topContentHeight": 92,
+      "ctaStripHeight": 36,
+      "gauge": { "width": 82, "height": 62, "strokeWidth": 8 },
+      "arrowSize": 20
+    },
+    "sessionCard": {
+      "minHeight": 146,
+      "radius": 22,
+      "thumbnailSize": 44,
+      "chipHeight": 20,
+      "progressHeight": 6
+    },
+    "emptySessions": {
+      "height": 122,
+      "iconSize": 36,
+      "buttonHeight": 32,
+      "buttonMinWidth": 156
+    },
+    "featureCard": {
+      "radius": 22,
+      "imageHeight": 160,
+      "mediaFill": "#A59D94"
+    },
+    "bottomNavigation": {
+      "maxWidth": 448,
+      "radius": 32,
+      "centerActionSize": 64,
+      "iconSize": 24,
+      "labelSize": 12
+    },
+    "journeyStats": {
+      "segmentedControlHeight": 52,
+      "dateFilterHeight": 44,
+      "insightCarouselHeight": 286,
+      "patternsColumns": 3,
+      "practiceGrid": "2x2",
+      "flipAnimationMs": 500
+    }
+  },
+  "rules": [
+    "Use Inter for every text node.",
+    "Keep the home and empty-home visible screens within the 10, 12, 14, 18, 24px type scale.",
+    "Use 24px screen gutters and 22px card radius for home surfaces.",
+    "Use the Dopameter 128px card with a 92px content area and 36px CTA strip across filled and empty states.",
+    "Use placeholder media fills from the Figma frames when no production asset is intentionally shown.",
+    "Keep empty states calm and compact; avoid adding heavier card borders unless the Figma frame uses one.",
+    "Journey stats should read as a calm weekly reflection, with Dopameter state language instead of focus scores or large percentages."
+  ]
+}
