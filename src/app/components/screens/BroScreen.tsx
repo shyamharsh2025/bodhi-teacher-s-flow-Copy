@@ -6,11 +6,11 @@ import { VoicePoweredOrb } from '../VoicePoweredOrb';
 interface Message {
   id: number;
   text: string;
-  sender: 'user' | 'ai';
+  sender: 'user' | 'bro';
   timestamp: Date;
 }
 
-export default function AICompanionScreen() {
+export default function BroScreen() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -38,15 +38,15 @@ export default function AICompanionScreen() {
     // Clear input
     setInputValue('');
 
-    // AI response after a short delay
+    // Bro response after a short delay
     setTimeout(() => {
-      const aiMessage: Message = {
+      const broMessage: Message = {
         id: Date.now() + 1,
         text: 'How much time do you have?',
-        sender: 'ai',
+        sender: 'bro',
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, broMessage]);
     }, 800);
   };
 
@@ -121,7 +121,7 @@ export default function AICompanionScreen() {
         <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center">
           <ArrowLeft className="w-5 h-5 text-[#5B4FDB]" />
         </button>
-        <h1 className="text-[20px] font-bold text-[#5B4FDB]">AI Companion</h1>
+        <h1 className="text-[20px] font-bold text-[#5B4FDB]">Bro</h1>
         <button className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center">
           <Menu className="w-5 h-5 text-[#5B4FDB]" />
         </button>

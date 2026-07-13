@@ -1,17 +1,23 @@
-import { ArrowLeft, Bookmark, Play } from 'lucide-react';
+import {
+  ArrowLeft,
+  Bookmark,
+  Clock,
+  Play,
+  Sparkles,
+} from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router';
 import rootChakraImage from '../../../imports/ReturnUserHome/680b9473c856efcb97e710b14b817e94ed6c94f3.png';
 import sacralChakraImage from '../../../imports/ReturnUserHome/a284d845041011ceb06c656399145b8c5c74bc5d.png';
 import heartChakraImage from '../../../imports/ReturnUserHome/33c81ac0148d41512ccbf9408cc3b4f4bde8048d.png';
 
 const sessions = [
-  { title: 'Root Chakra', minutes: 18, image: rootChakraImage, path: '/home/chakra-meditation/root' },
-  { title: 'Sacral Chakra', minutes: 15, image: sacralChakraImage, path: '/home/chakra-meditation/sacral' },
-  { title: 'Solar Plexus Chakra', minutes: 16, tone: 'from-[#F6E4B8] via-[#C7A15D] to-[#78612E]', path: '/home/chakra-meditation/solar-plexus' },
-  { title: 'Heart Chakra', minutes: 20, image: heartChakraImage, path: '/home/chakra-meditation/heart' },
-  { title: 'Throat Chakra', minutes: 14, tone: 'from-[#E8F2FF] via-[#97C7E8] to-[#415B87]', path: '/home/chakra-meditation/throat' },
-  { title: 'Third Eye Chakra', minutes: 17, tone: 'from-[#F4C4D2] via-[#97BDD7] to-[#3F4F89]', path: '/home/chakra-meditation/third-eye' },
-  { title: 'Crown Chakra', minutes: 19, tone: 'from-[#FFFFFF] via-[#D9D1FF] to-[#7D68E8]', path: '/home/chakra-meditation/crown' },
+  { title: 'Root Chakra', minutes: 18, image: rootChakraImage, tone: 'from-[#F6F7FF] via-[#E9EBF5] to-[#D6D8E6]', path: '/home/chakra-meditation/root' },
+  { title: 'Sacral Chakra', minutes: 15, image: sacralChakraImage, tone: 'from-[#FFF0E8] via-[#F5CBA7] to-[#D78B55]', path: '/home/chakra-meditation/sacral' },
+  { title: 'Solar Plexus Chakra', minutes: 16, tone: 'from-[#FFF6C8] via-[#E9BE58] to-[#9E7531]', path: '/home/chakra-meditation/solar-plexus' },
+  { title: 'Heart Chakra', minutes: 20, image: heartChakraImage, tone: 'from-[#ECFFF5] via-[#ACE5C9] to-[#4B9A73]', path: '/home/chakra-meditation/heart' },
+  { title: 'Throat Chakra', minutes: 14, tone: 'from-[#E8F7FF] via-[#9CCFF0] to-[#416BA5]', path: '/home/chakra-meditation/throat' },
+  { title: 'Third Eye Chakra', minutes: 17, tone: 'from-[#F8D4EC] via-[#A8BFE5] to-[#564CBA]', path: '/home/chakra-meditation/third-eye' },
+  { title: 'Crown Chakra', minutes: 19, tone: 'from-[#FFFFFF] via-[#DCD4FF] to-[#8D74F1]', path: '/home/chakra-meditation/crown' },
 ];
 
 export default function ChakraMeditationPlaylistScreen() {
@@ -33,64 +39,113 @@ export default function ChakraMeditationPlaylistScreen() {
     ? `Assigning to ${resolvedSelectedCount} ${resolvedSelectedCount === 1 ? 'student' : 'students'}`
     : 'Assigning to Grade 8A';
 
+  const openDetails = (path: string) => navigate(isAssignmentMode ? `${path}${assignmentQuery}` : path);
+  const openPlayer = (path: string) => {
+    if (isAssignmentMode) {
+      navigate(`${path}${assignmentQuery}`);
+      return;
+    }
+
+    navigate(`${path}/session`);
+  };
+
   return (
     <div
-      className="relative mx-auto min-h-screen w-full max-w-md overflow-hidden pb-7"
+      className="relative mx-auto min-h-screen w-full max-w-md overflow-hidden pb-9"
       style={{
         background:
-          'linear-gradient(180deg, #E8ECFE 0%, #EEF2FF 34%, #F5F2FF 68%, #FFFFFF 100%)',
+          'radial-gradient(circle at 84% 5%, rgba(183,216,255,0.48) 0%, rgba(183,216,255,0) 34%), linear-gradient(180deg, #E9EEFF 0%, #F2F0FF 43%, #FBFAFF 100%)',
       }}
     >
-      <div className="pointer-events-none absolute right-[-110px] top-[-70px] h-[280px] w-[280px] rounded-full bg-[#BFD8FF]/36 blur-[60px]" />
-      <div className="pointer-events-none absolute bottom-16 left-[-120px] h-[300px] w-[300px] rounded-full bg-[#DDD8FF]/42 blur-[70px]" />
+      <div className="pointer-events-none absolute left-[-110px] top-[180px] h-[280px] w-[280px] rounded-full bg-[#CBBEFF]/42 blur-[76px]" />
+      <div className="pointer-events-none absolute bottom-[140px] right-[-130px] h-[280px] w-[280px] rounded-full bg-[#BDE4FF]/40 blur-[80px]" />
 
       <div className="relative z-10">
         <StatusBar />
 
-        <header className="grid grid-cols-[64px_minmax(0,1fr)_64px] items-center px-5 pb-7 pt-6">
+        <header className="grid grid-cols-[52px_minmax(0,1fr)_52px] items-center px-5 pb-4 pt-5">
           <button
             aria-label="Go back"
             onClick={() => navigate(-1)}
-            className="flex h-[54px] w-[54px] items-center justify-center rounded-full border border-[#E8E7F1] bg-white/76 shadow-[0px_10px_24px_rgba(84,75,187,0.09)] backdrop-blur-xl active:scale-[0.96]"
+            className="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-white/85 bg-white/82 shadow-[0px_12px_28px_rgba(84,75,187,0.12)] backdrop-blur-xl active:scale-[0.96]"
           >
-            <ArrowLeft className="h-7 w-7 text-[#5840D4]" strokeWidth={2.3} />
+            <ArrowLeft className="h-7 w-7 text-[#5840D4]" strokeWidth={2.35} />
           </button>
 
-          <h1 className="min-w-0 text-center text-[24px] font-extrabold leading-8 tracking-normal text-[#2D2E34]">
-            Chakra Meditation
-          </h1>
+          <div className="min-w-0 text-center">
+            <h1 className="whitespace-nowrap bg-[linear-gradient(135deg,#1F2362_0%,#5840D4_55%,#3B82F6_100%)] bg-clip-text text-[25px] font-extrabold leading-8 tracking-normal text-transparent">
+              Chakra Meditation
+            </h1>
+            {isAssignmentMode && (
+              <p className="-mt-1 text-[12px] font-bold leading-4 text-[#5840D4]">
+                {assignmentContext}
+              </p>
+            )}
+          </div>
           <div />
         </header>
 
-        <main className="px-6">
-          <div className="mb-5 flex items-end justify-between gap-3">
-            <div className="min-w-0">
-              <h2 className="whitespace-nowrap text-[23px] font-extrabold leading-7 tracking-normal text-[#2D2E34]">
+        <main className="px-5">
+          <section className="relative overflow-hidden rounded-[26px] border border-white/34 bg-[linear-gradient(135deg,#5B4FDB_0%,#6042E6_45%,#2CA8EC_100%)] p-5 shadow-[0px_22px_50px_rgba(84,75,187,0.24)]">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_18%,rgba(255,255,255,0.34)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_12%_96%,rgba(180,244,255,0.28)_0%,rgba(180,244,255,0)_38%)]" />
+            <div className="pointer-events-none absolute right-[-54px] top-[-46px] h-[174px] w-[174px] rounded-full border border-white/24 bg-white/12 blur-[1px]" />
+            <div className="pointer-events-none absolute bottom-[-88px] left-[72px] h-[170px] w-[210px] rounded-full bg-white/14 blur-[38px]" />
+
+            <div className="relative">
+              <div className="flex items-start justify-between gap-4">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/24 bg-white/16 px-3 py-1.5 text-[12px] font-extrabold leading-4 text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.22)] backdrop-blur-xl">
+                  <Sparkles className="h-3.5 w-3.5 text-white" fill="white" strokeWidth={2.3} />
+                  Visualization Series
+                </div>
+                <button
+                  aria-label="Save Chakra Reset Series"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/22 bg-white/16 text-white shadow-[0px_10px_24px_rgba(19,28,94,0.14)] backdrop-blur-xl active:scale-[0.96]"
+                >
+                  <Bookmark className="h-5 w-5" strokeWidth={2.15} />
+                </button>
+              </div>
+
+              <h2 className="mt-4 text-[29px] font-extrabold leading-[33px] tracking-normal text-white">
                 Chakra Reset Series
               </h2>
-              {isAssignmentMode && (
-                <p className="mt-1 text-[13px] font-bold leading-5 text-[#5840D4]">
-                  {assignmentContext}
-                </p>
-              )}
+              <p className="mt-2 text-[14px] font-bold leading-5 text-white/78">
+                7 guided sessions · 1 hr 59 min
+              </p>
+              <p className="mt-3 max-w-[302px] text-[13.5px] font-medium leading-[21px] text-white/88">
+                A visualization-based chakra meditation series that gently guides you through each energy center to restore balance, deepen awareness, and create a calmer, more aligned inner state.
+              </p>
             </div>
-            <span className="shrink-0 pb-1 text-[13px] font-extrabold uppercase leading-4 tracking-[0.4px] text-[#5840D4]">
-              7 Sessions
-            </span>
-          </div>
+          </section>
 
-          <div className="space-y-5">
-            {sessions.map((session) => (
-              <SessionCard
-                key={session.title}
-                title={session.title}
-                minutes={session.minutes}
-                image={'image' in session ? session.image : undefined}
-                tone={'tone' in session ? session.tone : undefined}
-                onOpen={() => navigate(isAssignmentMode ? `${session.path}${assignmentQuery}` : session.path)}
-              />
-            ))}
-          </div>
+          <section className="mt-7">
+            <div className="mb-4 flex items-end justify-between gap-3 px-1">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-[#8171F2]" fill="#8171F2" strokeWidth={2.1} />
+                  <h2 className="text-[23px] font-extrabold leading-7 tracking-normal text-[#151A4D]">
+                    All Sessions
+                  </h2>
+                </div>
+                <p className="mt-1 pl-7 text-[14px] font-semibold leading-5 text-[#666A88]">
+                  7 guided meditations
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3.5">
+              {sessions.map((session) => (
+                <SessionCard
+                  key={session.title}
+                  title={session.title}
+                  minutes={session.minutes}
+                  image={'image' in session ? session.image : undefined}
+                  tone={session.tone}
+                  onOpen={() => openDetails(session.path)}
+                  onPlay={() => openPlayer(session.path)}
+                />
+              ))}
+            </div>
+          </section>
         </main>
       </div>
     </div>
@@ -103,56 +158,80 @@ function SessionCard({
   image,
   tone,
   onOpen,
+  onPlay,
 }: {
   title: string;
   minutes: number;
   image?: string;
-  tone?: string;
+  tone: string;
   onOpen: () => void;
+  onPlay: () => void;
 }) {
   return (
-    <div className="flex min-h-[108px] items-center gap-3 rounded-[24px] border border-[#E8E7F1] bg-white/92 px-4 py-4 shadow-[0px_16px_36px_rgba(84,75,187,0.12)] backdrop-blur-xl">
-      <button
+    <div
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onOpen();
+        }
+      }}
+      className="rounded-[24px] border-[1.5px] border-[#AFA5FF]/72 bg-[linear-gradient(135deg,rgba(255,255,255,0.96)_0%,rgba(248,250,255,0.92)_48%,rgba(239,245,255,0.88)_100%)] shadow-[0px_18px_38px_rgba(84,75,187,0.18),inset_0px_0px_0px_1px_rgba(255,255,255,0.82),0px_0px_28px_rgba(105,139,255,0.10)] backdrop-blur-xl"
+    >
+      <div
         onClick={onOpen}
-        className="flex min-w-0 flex-1 items-center gap-3 text-left active:scale-[0.99]"
+        className="flex min-h-[102px] w-full items-center gap-3 px-3.5 py-4 text-left active:scale-[0.99]"
       >
-        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#F2F0FF] shadow-[inset_0px_1px_0px_rgba(255,255,255,0.8),0px_8px_18px_rgba(84,75,187,0.10)]">
+        <div className="h-[62px] w-[62px] shrink-0 overflow-hidden rounded-full border-[2px] border-white bg-[#F3F1FF] shadow-[0px_12px_24px_rgba(84,75,187,0.17)]">
           {image ? (
             <img src={image} alt="" className="h-full w-full object-cover" />
           ) : (
-            <div className={`relative h-full w-full bg-gradient-to-br ${tone ?? 'from-[#EEE8FF] to-[#BFD8FF]'}`}>
-              <div className="absolute inset-x-3 bottom-4 h-4 rounded-full bg-black/20 blur-[4px]" />
-              <div className="absolute bottom-4 left-1/2 h-7 w-4 -translate-x-1/2 rounded-full bg-[#101221]/80" />
-              <div className="absolute left-1/2 top-4 h-5 w-5 -translate-x-1/2 rounded-full bg-white/60 blur-[1px]" />
-            </div>
+            <ChakraThumb tone={tone} />
           )}
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="line-clamp-2 text-[19px] font-extrabold leading-6 tracking-normal text-[#2D2E34]">
+          <h3 className="line-clamp-2 text-[19px] font-extrabold leading-[23px] tracking-normal text-[#151A4D]">
             {title}
           </h3>
-          <p className="mt-1 text-[18px] font-medium leading-6 text-[#6B6B86]">
-            {minutes} min
-          </p>
+          <div className="mt-2 flex items-center gap-1.5 text-[14px] font-semibold leading-5 text-[#656A8F]">
+            <Clock className="h-4 w-4 text-[#5F62A3]" strokeWidth={2.15} />
+            <span>{minutes} min</span>
+          </div>
         </div>
-      </button>
 
-      <div className="flex shrink-0 items-center gap-2">
-        <button
-          aria-label={`Bookmark ${title}`}
-          className="flex h-10 w-10 items-center justify-center rounded-full active:scale-[0.96]"
-        >
-          <Bookmark className="h-6 w-6 text-[#63627C]" strokeWidth={2.1} />
-        </button>
-        <button
-          aria-label={`Play ${title}`}
-          onClick={onOpen}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#8171F2_0%,#5840D4_100%)] shadow-[0px_10px_22px_rgba(84,75,187,0.24)] active:scale-[0.96]"
-        >
-          <Play className="ml-1 h-6 w-6 text-white" fill="white" strokeWidth={2} />
-        </button>
+        <div className="flex shrink-0 items-center gap-1">
+          <button
+            aria-label={`Bookmark ${title}`}
+            onClick={(event) => event.stopPropagation()}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E4E0FF]/60 bg-white/42 text-[#636A93] active:scale-[0.96]"
+          >
+            <Bookmark className="h-6 w-6" strokeWidth={2.05} />
+          </button>
+          <button
+            aria-label={`Play ${title}`}
+            onClick={(event) => {
+              event.stopPropagation();
+              onPlay();
+            }}
+            className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[linear-gradient(135deg,#8171F2_0%,#5840D4_54%,#3B82F6_100%)] shadow-[0px_12px_24px_rgba(84,75,187,0.34)] active:scale-[0.96]"
+          >
+            <Play className="ml-0.5 h-[22px] w-[22px] text-white" fill="white" strokeWidth={2} />
+          </button>
+        </div>
       </div>
+    </div>
+  );
+}
+
+function ChakraThumb({ tone }: { tone: string }) {
+  return (
+    <div className={`relative h-full w-full bg-gradient-to-br ${tone}`}>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_35%)]" />
+      <div className="absolute inset-x-4 bottom-4 h-3 rounded-full bg-black/20 blur-[4px]" />
+      <div className="absolute bottom-[18px] left-1/2 h-[26px] w-[15px] -translate-x-1/2 rounded-full bg-[#11142B]/72" />
+      <div className="absolute left-1/2 top-[18px] h-5 w-5 -translate-x-1/2 rounded-full bg-white/66 blur-[1px]" />
     </div>
   );
 }
@@ -162,19 +241,16 @@ function StatusBar() {
     <div className="flex items-center justify-between px-7 pb-2 pt-8">
       <div className="text-[14px] font-semibold leading-5 tracking-normal text-black">9:41</div>
       <div className="flex items-center gap-1.5">
-        <svg className="h-[12px] w-[19px]" viewBox="0 0 19.2 12.2264" fill="none">
-          <path fillRule="evenodd" clipRule="evenodd" d="M19.2 1.14623C19.2 0.513183 18.7224 0 18.1333 0H17.0667C16.4776 0 16 0.513183 16 1.14623V11.0802C16 11.7132 16.4776 12.2264 17.0667 12.2264H18.1333C18.7224 12.2264 19.2 11.7132 19.2 11.0802V1.14623ZM11.7659 2.44528H12.8326C13.4217 2.44528 13.8992 2.97078 13.8992 3.61902V11.0527C13.8992 11.7009 13.4217 12.2264 12.8326 12.2264H11.7659C11.1768 12.2264 10.6992 11.7009 10.6992 11.0527V3.61902C10.6992 2.97078 11.1768 2.44528 11.7659 2.44528ZM7.43411 5.09433H6.36745C5.77834 5.09433 5.30078 5.62652 5.30078 6.28301V11.0377C5.30078 11.6942 5.77834 12.2264 6.36745 12.2264H7.43411C8.02322 12.2264 8.50078 11.6942 8.50078 11.0377V6.28301C8.50078 5.62652 8.02322 5.09433 7.43411 5.09433ZM2.13333 7.53962H1.06667C0.477563 7.53962 0 8.06421 0 8.71132V11.0547C0 11.7018 0.477563 12.2264 1.06667 12.2264H2.13333C2.72244 12.2264 3.2 11.7018 3.2 11.0547V8.71132C3.2 8.06421 2.72244 7.53962 2.13333 7.53962Z" fill="black" />
-        </svg>
-        <svg className="h-[12px] w-[17px]" viewBox="0 0 17.1429 12.328" fill="none">
-          <path fillRule="evenodd" clipRule="evenodd" d="M8.57412 2.40833C10.8971 2.40843 13.1313 3.30023 14.8146 4.89924C14.9414 5.02276 15.1442 5.0212 15.2691 4.89575L16.4814 3.67441C16.5446 3.61087 16.5799 3.52465 16.5794 3.4349C16.5789 3.34515 16.5426 3.25932 16.4787 3.19654C12.0612 -1.06551 5.08579 -1.06551 0.668307 3.19654C0.604336 3.25928 0.568036 3.34509 0.567483 3.43484C0.56693 3.52459 0.602169 3.61083 0.665362 3.67441L1.87802 4.89575C2.00281 5.02139 2.20578 5.02295 2.33249 4.89924C4.01626 3.30012 6.25083 2.40833 8.57412 2.40833ZM8.57412 6.37201C9.85162 6.37193 11.0836 6.84751 12.0302 7.70618C12.1578 7.82787 12.3596 7.82524 12.484 7.70026L13.695 6.47893C13.7588 6.41484 13.7942 6.32769 13.7932 6.23715C13.7922 6.14661 13.7549 6.06028 13.6897 5.99762C10.8047 3.3545 6.34524 3.3545 3.46019 5.99762C3.3949 6.06028 3.35763 6.14666 3.35669 6.23723C3.35576 6.32781 3.39124 6.41496 3.45522 6.47893L4.66582 7.70026C4.79019 7.82524 4.99197 7.82787 5.1196 7.70618C6.06567 6.84808 7.29718 6.37255 8.57412 6.37201ZM11.0039 9.04394C11.0058 9.13476 10.9702 9.2223 10.9055 9.28595L8.80456 11.4028C8.74297 11.4651 8.65905 11.5001 8.57151 11.5001C8.48398 11.5001 8.40006 11.4651 8.33846 11.4028L6.23721 9.28595C6.17256 9.22225 6.13704 9.13467 6.13905 9.04384C6.14107 8.95301 6.18044 8.8671 6.24785 8.80634C7.58917 7.67556 9.55444 7.67556 10.8958 8.80634C10.9633 8.86703 11.0021 8.95305 11.0039 9.04394Z" fill="black" />
-        </svg>
-        <div className="relative h-[13px] w-[27px]">
-          <svg viewBox="0 0 27 13" fill="none" className="h-full w-full">
-            <rect x="0.5" y="0.5" width="24" height="12" rx="3.8" stroke="black" opacity="0.35" />
-            <rect x="2" y="2" width="20" height="9" rx="2.7" fill="black" />
-            <path d="M25 4.5C26.1 4.98 26.8 6 26.8 7.1C26.8 8.2 26.1 9.22 25 9.7V4.5Z" fill="black" opacity="0.4" />
-          </svg>
-        </div>
+        <span className="flex h-3 items-end gap-0.5">
+          <span className="h-1.5 w-1 rounded-sm bg-black" />
+          <span className="h-2 w-1 rounded-sm bg-black" />
+          <span className="h-2.5 w-1 rounded-sm bg-black" />
+          <span className="h-3 w-1 rounded-sm bg-black" />
+        </span>
+        <span className="h-3 w-4 rounded-[3px] border-2 border-black border-t-0" />
+        <span className="h-[13px] w-[27px] rounded-[5px] border border-black/40 p-[2px]">
+          <span className="block h-full w-[20px] rounded-[3px] bg-black" />
+        </span>
       </div>
     </div>
   );

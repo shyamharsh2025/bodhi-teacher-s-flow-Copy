@@ -24,6 +24,36 @@ const chakraTitles: Record<string, string> = {
   crown: 'Crown Chakra Meditation',
 };
 
+const chakraDurations: Record<string, string> = {
+  root: '18 min',
+  sacral: '15 min',
+  'solar-plexus': '16 min',
+  heart: '20 min',
+  throat: '14 min',
+  'third-eye': '17 min',
+  crown: '19 min',
+};
+
+const focusTitles: Record<string, string> = {
+  'nsdr-quick-reset': 'NSDR Quick Reset',
+  'nsdr-deep-recovery': 'NSDR Deep Recovery',
+  'yog-nidra': 'Yog Nidra',
+  'trataka-meditation': 'Trataka Meditation',
+  'binaural-beats-for-focus': 'Binaural Beats for Focus',
+  'breathework-for-focus': 'Breathework for Focus',
+  'grounding-and-calm': 'Meditation for Grounding and Calm',
+};
+
+const focusDurations: Record<string, string> = {
+  'nsdr-quick-reset': '12 min',
+  'nsdr-deep-recovery': '25 min',
+  'yog-nidra': '20 min',
+  'trataka-meditation': '14 min',
+  'binaural-beats-for-focus': '18 min',
+  'breathework-for-focus': '10 min',
+  'grounding-and-calm': '15 min',
+};
+
 const playerActions = [
   { label: 'Share', icon: Share2 },
   { label: 'Download', icon: Download },
@@ -34,9 +64,17 @@ const playerActions = [
 
 export default function ChakraMeditationPlayerScreen() {
   const navigate = useNavigate();
-  const { chakra = 'root' } = useParams();
+  const { chakra, focus } = useParams();
   const [isPlaying, setIsPlaying] = useState(true);
-  const title = chakraTitles[chakra] ?? chakraTitles.root;
+  const isFocusMeditation = Boolean(focus);
+  const meditationSlug = focus ?? chakra ?? 'root';
+  const title = isFocusMeditation
+    ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
+    : chakraTitles[meditationSlug] ?? chakraTitles.root;
+  const duration = isFocusMeditation
+    ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
+    : chakraDurations[meditationSlug] ?? chakraDurations.root;
+  const categoryLabel = isFocusMeditation ? 'Guided focus meditation' : 'Guided chakra meditation';
 
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-md overflow-hidden bg-[#EEF2FF] text-[#25263A]">
@@ -84,7 +122,7 @@ export default function ChakraMeditationPlayerScreen() {
                   {title}
                 </h2>
                 <p className="mt-1 text-[16px] font-semibold leading-6 text-[#6B6B86]">
-                  18 min · Guided chakra meditation
+                  {duration} · {categoryLabel}
                 </p>
               </div>
               <button

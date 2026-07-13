@@ -43,10 +43,12 @@ export default function RootLayout() {
 
   // Hide navigation on focused, immersive task screens.
   const showNav =
+    !location.pathname.includes('/bro') &&
     !location.pathname.includes('/ai-companion') &&
     !location.pathname.includes('/meditation-session') &&
     !location.pathname.includes('/thought-bank/write') &&
-    !location.pathname.includes('/chakra-meditation');
+    !location.pathname.includes('/chakra-meditation') &&
+    !location.pathname.includes('/focus-concentration');
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     swipeStartRef.current = {

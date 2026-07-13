@@ -16,7 +16,7 @@ import SessionsScreen from './components/screens/SessionsScreen';
 import LeagueScreen from './components/screens/LeagueScreen';
 import AssignIndividuallyScreen from './components/screens/AssignIndividuallyScreen';
 import MemberProfileScreen from './components/screens/MemberProfileScreen';
-import AICompanionScreen from './components/screens/AICompanionScreen';
+import BroScreen from './components/screens/BroScreen';
 import ExploreScreen from './components/screens/ExploreScreen';
 import ThoughtBankScreen from './components/screens/ThoughtBankScreen';
 import ThoughtBankRecentEntriesScreen from './components/screens/ThoughtBankRecentEntriesScreen';
@@ -25,6 +25,7 @@ import JourneyScreen from './components/screens/JourneyScreen';
 import DopaMeterScreen from './components/screens/DopaMeterScreen';
 import NewForYouScreen from './components/screens/NewForYouScreen';
 import ChakraMeditationPlaylistScreen from './components/screens/ChakraMeditationPlaylistScreen';
+import FocusConcentrationPlaylistScreen from './components/screens/FocusConcentrationPlaylistScreen';
 import GroundChakraMeditationScreen from './components/screens/GroundChakraMeditationScreen';
 import ChakraMeditationPlayerScreen from './components/screens/ChakraMeditationPlayerScreen';
 import MeditationSessionScreen from './components/screens/MeditationSessionScreen';
@@ -177,7 +178,8 @@ export const router = createBrowserRouter([
       { path: 'sessions/league', Component: LeagueScreen },
       { path: 'sessions/assign-individually', Component: AssignIndividuallyScreen },
       { path: 'sessions/member-profile', Component: MemberProfileScreen },
-      { path: 'ai-companion', Component: AICompanionScreen },
+      { path: 'bro', Component: BroScreen },
+      { path: 'ai-companion', element: <Navigate to="/home/bro" replace /> },
       { path: 'explore', Component: ExploreScreen },
       { path: 'explore/new-for-you', Component: NewForYouScreen },
       { path: 'explore/thought-bank', Component: ThoughtBankScreen },
@@ -186,6 +188,9 @@ export const router = createBrowserRouter([
       { path: 'journey', Component: JourneyScreen },
       { path: 'dopa-meter', Component: DopaMeterScreen, errorElement: <DopaMeterRouteFallback /> },
       { path: 'chakra-meditation', Component: ChakraMeditationPlaylistScreen },
+      { path: 'focus-concentration', Component: FocusConcentrationPlaylistScreen },
+      { path: 'focus-concentration/:focus/session', Component: ChakraMeditationPlayerScreen },
+      { path: 'focus-concentration/:focus', Component: GroundChakraMeditationScreen },
       { path: 'chakra-meditation/:chakra/session', Component: ChakraMeditationPlayerScreen },
       { path: 'chakra-meditation/:chakra', Component: GroundChakraMeditationScreen },
       { path: 'meditation-detail', element: <Navigate to="/home/chakra-meditation/root" replace /> },

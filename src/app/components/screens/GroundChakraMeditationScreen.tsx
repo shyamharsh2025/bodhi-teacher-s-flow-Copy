@@ -7,7 +7,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import rootChakraImage from '../../../imports/ReturnUserHome/680b9473c856efcb97e710b14b817e94ed6c94f3.png';
 
 const actions = [
@@ -37,6 +37,26 @@ const chakraDurations: Record<string, string> = {
   crown: '19 min',
 };
 
+const focusTitles: Record<string, string> = {
+  'nsdr-quick-reset': 'NSDR Quick Reset',
+  'nsdr-deep-recovery': 'NSDR Deep Recovery',
+  'yog-nidra': 'Yog Nidra',
+  'trataka-meditation': 'Trataka Meditation',
+  'binaural-beats-for-focus': 'Binaural Beats for Focus',
+  'breathework-for-focus': 'Breathework for Focus',
+  'grounding-and-calm': 'Meditation for Grounding and Calm',
+};
+
+const focusDurations: Record<string, string> = {
+  'nsdr-quick-reset': '12 min',
+  'nsdr-deep-recovery': '25 min',
+  'yog-nidra': '20 min',
+  'trataka-meditation': '14 min',
+  'binaural-beats-for-focus': '18 min',
+  'breathework-for-focus': '10 min',
+  'grounding-and-calm': '15 min',
+};
+
 const groundBenefits = [
   'Helps settle anxious or scattered energy before you begin.',
   'Builds a steadier connection with the body and breath.',
@@ -44,14 +64,32 @@ const groundBenefits = [
   'Creates a slower, safer rhythm when things feel overwhelming.',
 ];
 
+const focusBenefits = [
+  'Helps reduce scattered attention before starting deep work.',
+  'Supports a calmer nervous system and clearer mental rhythm.',
+  'Creates a simple reset when focus feels strained or fragmented.',
+  'Builds steadier attention without forcing the mind to perform.',
+];
+
 export default function GroundChakraMeditationScreen() {
   const navigate = useNavigate();
-  const { chakra = 'root' } = useParams();
+  const location = useLocation();
+  const { chakra, focus } = useParams();
   const [searchParams] = useSearchParams();
   const [assignmentSheet, setAssignmentSheet] = useState<'confirm' | 'success' | null>(null);
   const [showSessionDetails, setShowSessionDetails] = useState(false);
-  const title = chakraTitles[chakra] ?? chakraTitles.root;
-  const duration = chakraDurations[chakra] ?? chakraDurations.root;
+  const isFocusMeditation = Boolean(focus);
+  const meditationSlug = focus ?? chakra ?? 'root';
+  const title = isFocusMeditation
+    ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
+    : chakraTitles[meditationSlug] ?? chakraTitles.root;
+  const duration = isFocusMeditation
+    ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
+    : chakraDurations[meditationSlug] ?? chakraDurations.root;
+  const sessionPath = `${location.pathname.replace(/\/$/, '')}/session`;
+  const practiceTag = isFocusMeditation ? 'Focus Practice' : 'Root Chakra';
+  const detailCategory = isFocusMeditation ? 'Focus & Concentration' : 'Chakra Meditation';
+  const benefits = isFocusMeditation ? focusBenefits : groundBenefits;
   const assignmentTarget = searchParams.get('assign');
   const selectedCount = Number(searchParams.get('count') || '0');
   const resolvedSelectedCount = selectedCount > 0 ? selectedCount : 1;
@@ -132,7 +170,7 @@ export default function GroundChakraMeditationScreen() {
                   Guided
                 </span>
                 <span className="rounded-full bg-white/76 px-3.5 py-2 text-[12px] font-bold leading-4 text-[#6B6B86] shadow-[inset_0px_1px_0px_rgba(255,255,255,0.92)]">
-                  Root Chakra
+                  {practiceTag}
                 </span>
               </div>
 
@@ -141,9 +179,9 @@ export default function GroundChakraMeditationScreen() {
                   What this session is like
                 </p>
                 <p className="mt-2 text-[15.5px] font-semibold leading-[24px] text-[#5F6078]">
-                  This meditation brings attention down into the body through the Root Chakra
-                  (Muladhara), the energy center associated with steadiness, safety, and inner
-                  support.{' '}
+                  {isFocusMeditation
+                    ? 'This meditation is designed to help the mind settle into a clearer, steadier state for deep attention and calm productivity.'
+                    : 'This meditation brings attention down into the body through the Root Chakra (Muladhara), the energy center associated with steadiness, safety, and inner support.'}{' '}
                   <button
                     type="button"
                     onClick={() => setShowSessionDetails((value) => !value)}
@@ -156,13 +194,14 @@ export default function GroundChakraMeditationScreen() {
                 {showSessionDetails && (
                   <div className="mt-3 space-y-3 text-[15px] font-medium leading-[24px] text-[#676982]">
                     <p>
-                      The session moves slowly. You will be guided to notice your breath, soften
-                      unnecessary tension, and return to a simple physical anchor whenever the mind
-                      begins to wander.
+                      {isFocusMeditation
+                        ? 'The session moves at a gentle, structured pace. You will be guided to release excess mental noise, return to a simple anchor, and create enough space for attention to feel less forced.'
+                        : 'The session moves slowly. You will be guided to notice your breath, soften unnecessary tension, and return to a simple physical anchor whenever the mind begins to wander.'}
                     </p>
                     <p>
-                      Choose this when you want less mental noise and a stronger sense of being here,
-                      in this moment, with both feet on the ground.
+                      {isFocusMeditation
+                        ? 'Choose this when you want a smoother reset before studying, working, or returning to a task that needs steady concentration.'
+                        : 'Choose this when you want less mental noise and a stronger sense of being here, in this moment, with both feet on the ground.'}
                     </p>
                   </div>
                 )}
@@ -179,7 +218,7 @@ export default function GroundChakraMeditationScreen() {
               Benefits
             </h2>
             <ul className="mt-3 space-y-3">
-              {groundBenefits.map((benefit) => (
+              {benefits.map((benefit) => (
                 <li key={benefit} className="flex gap-3 text-[15px] font-semibold leading-[22px] text-[#5F6078]">
                   <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#5840D4]" />
                   <span>{benefit}</span>
@@ -212,7 +251,7 @@ export default function GroundChakraMeditationScreen() {
           onClick={() =>
             isAssignmentMode
               ? setAssignmentSheet('confirm')
-              : navigate(`/home/chakra-meditation/${chakra}/session`)
+              : navigate(sessionPath)
           }
           className="flex h-[58px] w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#8171F2_0%,#5840D4_100%)] text-[18px] font-extrabold leading-7 text-white shadow-[0px_18px_34px_rgba(84,75,187,0.30)] active:scale-[0.98]"
         >
@@ -240,7 +279,7 @@ export default function GroundChakraMeditationScreen() {
                 <div className="mt-4 rounded-[20px] border border-[#E7E2FF] bg-[#F7F5FF] px-4 py-3">
                   <p className="text-[16px] font-extrabold leading-5 text-[#2D2E34]">{title}</p>
                   <p className="mt-1 text-[13px] font-bold leading-4 text-[#6B6B86]">
-                    Chakra Meditation
+                    {detailCategory}
                   </p>
                 </div>
                 <button
