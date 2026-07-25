@@ -26,6 +26,9 @@ import DopaMeterScreen from './components/screens/DopaMeterScreen';
 import NewForYouScreen from './components/screens/NewForYouScreen';
 import ChakraMeditationPlaylistScreen from './components/screens/ChakraMeditationPlaylistScreen';
 import FocusConcentrationPlaylistScreen from './components/screens/FocusConcentrationPlaylistScreen';
+import EmotionalWellbeingPlaylistScreen from './components/screens/EmotionalWellbeingPlaylistScreen';
+import AwarenessObservationPlaylistScreen from './components/screens/AwarenessObservationPlaylistScreen';
+import RegulationControlPlaylistScreen from './components/screens/RegulationControlPlaylistScreen';
 import GroundChakraMeditationScreen from './components/screens/GroundChakraMeditationScreen';
 import ChakraMeditationPlayerScreen from './components/screens/ChakraMeditationPlayerScreen';
 import MeditationSessionScreen from './components/screens/MeditationSessionScreen';
@@ -191,6 +194,15 @@ export const router = createBrowserRouter([
       { path: 'focus-concentration', Component: FocusConcentrationPlaylistScreen },
       { path: 'focus-concentration/:focus/session', Component: ChakraMeditationPlayerScreen },
       { path: 'focus-concentration/:focus', Component: GroundChakraMeditationScreen },
+      { path: 'emotional-wellbeing', Component: EmotionalWellbeingPlaylistScreen },
+      { path: 'emotional-wellbeing/:emotional/session', Component: ChakraMeditationPlayerScreen },
+      { path: 'emotional-wellbeing/:emotional', Component: GroundChakraMeditationScreen },
+      { path: 'awareness-observation', Component: AwarenessObservationPlaylistScreen },
+      { path: 'awareness-observation/:awareness/session', Component: ChakraMeditationPlayerScreen },
+      { path: 'awareness-observation/:awareness', Component: GroundChakraMeditationScreen },
+      { path: 'regulation-control', Component: RegulationControlPlaylistScreen },
+      { path: 'regulation-control/:regulation/session', Component: ChakraMeditationPlayerScreen },
+      { path: 'regulation-control/:regulation', Component: GroundChakraMeditationScreen },
       { path: 'chakra-meditation/:chakra/session', Component: ChakraMeditationPlayerScreen },
       { path: 'chakra-meditation/:chakra', Component: GroundChakraMeditationScreen },
       { path: 'meditation-detail', element: <Navigate to="/home/chakra-meditation/root" replace /> },

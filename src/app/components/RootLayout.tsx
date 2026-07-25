@@ -48,7 +48,16 @@ export default function RootLayout() {
     !location.pathname.includes('/meditation-session') &&
     !location.pathname.includes('/thought-bank/write') &&
     !location.pathname.includes('/chakra-meditation') &&
-    !location.pathname.includes('/focus-concentration');
+    !location.pathname.includes('/focus-concentration') &&
+    !location.pathname.includes('/emotional-wellbeing') &&
+    !location.pathname.includes('/awareness-observation') &&
+    !location.pathname.includes('/regulation-control') &&
+    !location.pathname.includes('/focus-sprint') &&
+    !location.pathname.includes('/focus-start-options') &&
+    !location.pathname.includes('/focus-timer') &&
+    !location.pathname.includes('/breathwork-prep') &&
+    !location.pathname.includes('/meditation-prep') &&
+    !location.pathname.includes('/focus-complete');
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     swipeStartRef.current = {

@@ -1,4 +1,4 @@
-import { Bell, Search, SlidersHorizontal, Plus, Target, BookOpen, Bookmark, Play, Moon, Heart, Brain } from 'lucide-react';
+import { Bell, Search, SlidersHorizontal, Plus, Target, BookOpen, Bookmark, Play, Eye, Heart, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -32,6 +32,9 @@ export default function ExploreScreen() {
   const openPlaylist = () => navigate(`/home/chakra-meditation${assignmentQuery}`);
   const openRootChakra = () => navigate(`/home/chakra-meditation/root${assignmentQuery}`);
   const openFocusPlaylist = () => navigate('/home/focus-concentration');
+  const openEmotionalPlaylist = () => navigate('/home/emotional-wellbeing');
+  const openAwarenessPlaylist = () => navigate('/home/awareness-observation');
+  const openRegulationPlaylist = () => navigate('/home/regulation-control');
 
   const categories = [
     {
@@ -41,10 +44,10 @@ export default function ExploreScreen() {
       icon: Target,
     },
     {
-      title: 'Sleep',
+      title: 'Awareness and Observation',
       img: 'https://images.unsplash.com/photo-1532978879514-6cb1a2da6f04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
       tint: 'from-[#1E2A78]/34 via-[#5840D4]/20 to-[#10122B]/56',
-      icon: Moon,
+      icon: Eye,
     },
     {
       title: 'Emotional Wellbeing',
@@ -53,10 +56,10 @@ export default function ExploreScreen() {
       icon: Heart,
     },
     {
-      title: 'Mindfulness',
+      title: 'Regulation and Control',
       img: 'https://images.unsplash.com/photo-1518604666860-9ed391f76460?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
       tint: 'from-[#0E5D7C]/30 via-[#5840D4]/20 to-[#10122B]/54',
-      icon: Brain,
+      icon: ShieldCheck,
     },
   ];
 
@@ -226,7 +229,17 @@ export default function ExploreScreen() {
             <CategoryCard
               key={c.title}
               category={c}
-              onClick={c.title === 'Focus & Concentration' ? openFocusPlaylist : openRootChakra}
+              onClick={
+                c.title === 'Focus & Concentration'
+                  ? openFocusPlaylist
+                  : c.title === 'Emotional Wellbeing'
+                    ? openEmotionalPlaylist
+                    : c.title === 'Awareness and Observation'
+                      ? openAwarenessPlaylist
+                      : c.title === 'Regulation and Control'
+                        ? openRegulationPlaylist
+                        : openRootChakra
+              }
             />
           ))}
         </motion.div>

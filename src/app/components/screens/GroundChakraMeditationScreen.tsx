@@ -57,6 +57,70 @@ const focusDurations: Record<string, string> = {
   'grounding-and-calm': '15 min',
 };
 
+const emotionalTitles: Record<string, string> = {
+  'calm-your-anxiety': 'Calm Your Anxiety',
+  'release-stress': 'Release Stress',
+  'move-through-anger': 'Move Through Anger',
+  'ease-overthinking': 'Ease Overthinking',
+  'when-you-feel-sad': 'When You Feel Sad',
+  'work-through-frustration': 'Work Through Frustration',
+  'handle-worry': 'Handle Worry',
+  'overcome-self-doubt': 'Overcome Self-Doubt',
+  'release-guilt': 'Release Guilt',
+  'feel-misunderstood': 'When You Feel Misunderstood',
+  'feel-judged': 'When You Feel Judged',
+  'handle-expectations': 'Handle Expectations',
+};
+
+const emotionalDurations: Record<string, string> = {
+  'calm-your-anxiety': '14 min',
+  'release-stress': '13 min',
+  'move-through-anger': '16 min',
+  'ease-overthinking': '12 min',
+  'when-you-feel-sad': '15 min',
+  'work-through-frustration': '13 min',
+  'handle-worry': '12 min',
+  'overcome-self-doubt': '14 min',
+  'release-guilt': '16 min',
+  'feel-misunderstood': '13 min',
+  'feel-judged': '12 min',
+  'handle-expectations': '15 min',
+};
+
+const awarenessTitles: Record<string, string> = {
+  'mind-decode': 'Mind Decode',
+  'objective-observer': 'The Objective Observer',
+  'know-your-patterns': 'Know Your Patterns',
+  'pause-before-you-react': 'Pause Before You React',
+  'build-self-awareness': 'Build Self-Awareness',
+};
+
+const awarenessDurations: Record<string, string> = {
+  'mind-decode': '12 min',
+  'objective-observer': '14 min',
+  'know-your-patterns': '13 min',
+  'pause-before-you-react': '10 min',
+  'build-self-awareness': '15 min',
+};
+
+const regulationTitles: Record<string, string> = {
+  'master-your-mind': 'Master Your Mind',
+  'regulate-anger': 'Regulate Anger',
+  'release-and-let-go': 'Release & Let Go',
+  'build-inner-peace': 'Build Inner Peace',
+  'strengthen-emotional-control': 'Strengthen Emotional Control',
+  'respond-dont-react': "Respond, Don't React",
+};
+
+const regulationDurations: Record<string, string> = {
+  'master-your-mind': '15 min',
+  'regulate-anger': '14 min',
+  'release-and-let-go': '13 min',
+  'build-inner-peace': '16 min',
+  'strengthen-emotional-control': '15 min',
+  'respond-dont-react': '12 min',
+};
+
 const groundBenefits = [
   'Helps settle anxious or scattered energy before you begin.',
   'Builds a steadier connection with the body and breath.',
@@ -71,25 +135,85 @@ const focusBenefits = [
   'Builds steadier attention without forcing the mind to perform.',
 ];
 
+const emotionalBenefits = [
+  'Helps name what you are feeling without judging it.',
+  'Supports nervous-system regulation through breath and awareness.',
+  'Creates space between the emotion and the response.',
+  'Builds self-compassion while staying grounded in the present.',
+];
+
+const awarenessBenefits = [
+  'Helps notice thoughts and emotions before reacting to them.',
+  'Builds the skill of separating facts from interpretations.',
+  'Supports clearer choices by making patterns easier to see.',
+  'Creates a steadier pause between trigger, impulse, and response.',
+];
+
+const regulationBenefits = [
+  'Builds the ability to direct attention without forcing thoughts away.',
+  'Strengthens the pause between emotion, impulse, and action.',
+  'Supports steadier responses during stress, anger, or pressure.',
+  'Helps cultivate inner control through repeated calm practice.',
+];
+
 export default function GroundChakraMeditationScreen() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { chakra, focus } = useParams();
+  const { chakra, focus, emotional, awareness, regulation } = useParams();
   const [searchParams] = useSearchParams();
   const [assignmentSheet, setAssignmentSheet] = useState<'confirm' | 'success' | null>(null);
   const [showSessionDetails, setShowSessionDetails] = useState(false);
   const isFocusMeditation = Boolean(focus);
-  const meditationSlug = focus ?? chakra ?? 'root';
-  const title = isFocusMeditation
-    ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
-    : chakraTitles[meditationSlug] ?? chakraTitles.root;
-  const duration = isFocusMeditation
-    ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
-    : chakraDurations[meditationSlug] ?? chakraDurations.root;
+  const isEmotionalMeditation = Boolean(emotional);
+  const isAwarenessMeditation = Boolean(awareness);
+  const isRegulationMeditation = Boolean(regulation);
+  const meditationSlug = regulation ?? awareness ?? emotional ?? focus ?? chakra ?? 'root';
+  const title = isRegulationMeditation
+    ? regulationTitles[meditationSlug] ?? regulationTitles['master-your-mind']
+    : isAwarenessMeditation
+      ? awarenessTitles[meditationSlug] ?? awarenessTitles['mind-decode']
+      : isEmotionalMeditation
+      ? emotionalTitles[meditationSlug] ?? emotionalTitles['calm-your-anxiety']
+      : isFocusMeditation
+      ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
+      : chakraTitles[meditationSlug] ?? chakraTitles.root;
+  const duration = isRegulationMeditation
+    ? regulationDurations[meditationSlug] ?? regulationDurations['master-your-mind']
+    : isAwarenessMeditation
+      ? awarenessDurations[meditationSlug] ?? awarenessDurations['mind-decode']
+      : isEmotionalMeditation
+      ? emotionalDurations[meditationSlug] ?? emotionalDurations['calm-your-anxiety']
+      : isFocusMeditation
+      ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
+      : chakraDurations[meditationSlug] ?? chakraDurations.root;
   const sessionPath = `${location.pathname.replace(/\/$/, '')}/session`;
-  const practiceTag = isFocusMeditation ? 'Focus Practice' : 'Root Chakra';
-  const detailCategory = isFocusMeditation ? 'Focus & Concentration' : 'Chakra Meditation';
-  const benefits = isFocusMeditation ? focusBenefits : groundBenefits;
+  const practiceTag = isRegulationMeditation
+    ? 'Regulation Practice'
+    : isAwarenessMeditation
+      ? 'Awareness Practice'
+      : isEmotionalMeditation
+      ? 'Emotional Practice'
+      : isFocusMeditation
+        ? 'Focus Practice'
+        : 'Root Chakra';
+  const detailCategory = isRegulationMeditation
+    ? 'Regulation & Control'
+    : isAwarenessMeditation
+      ? 'Awareness & Observation'
+      : isEmotionalMeditation
+      ? 'Emotional Wellbeing'
+      : isFocusMeditation
+        ? 'Focus & Concentration'
+        : 'Chakra Meditation';
+  const benefits = isRegulationMeditation
+    ? regulationBenefits
+    : isAwarenessMeditation
+      ? awarenessBenefits
+      : isEmotionalMeditation
+      ? emotionalBenefits
+      : isFocusMeditation
+        ? focusBenefits
+        : groundBenefits;
   const assignmentTarget = searchParams.get('assign');
   const selectedCount = Number(searchParams.get('count') || '0');
   const resolvedSelectedCount = selectedCount > 0 ? selectedCount : 1;
@@ -179,7 +303,13 @@ export default function GroundChakraMeditationScreen() {
                   What this session is like
                 </p>
                 <p className="mt-2 text-[15.5px] font-semibold leading-[24px] text-[#5F6078]">
-                  {isFocusMeditation
+                  {isRegulationMeditation
+                    ? 'This meditation helps you direct attention, regulate strong impulses, and choose a response without trying to control every thought.'
+                    : isAwarenessMeditation
+                    ? 'This meditation helps you observe thoughts, feelings, triggers, and patterns with more distance before deciding how to respond.'
+                    : isEmotionalMeditation
+                    ? 'This meditation gives you a calm place to notice what you are feeling, regulate your body, and respond with more kindness and clarity.'
+                    : isFocusMeditation
                     ? 'This meditation is designed to help the mind settle into a clearer, steadier state for deep attention and calm productivity.'
                     : 'This meditation brings attention down into the body through the Root Chakra (Muladhara), the energy center associated with steadiness, safety, and inner support.'}{' '}
                   <button
@@ -194,12 +324,24 @@ export default function GroundChakraMeditationScreen() {
                 {showSessionDetails && (
                   <div className="mt-3 space-y-3 text-[15px] font-medium leading-[24px] text-[#676982]">
                     <p>
-                      {isFocusMeditation
+                      {isRegulationMeditation
+                        ? 'The session guides you to slow the body, steady attention, and practice choosing the next response from a calmer internal state.'
+                        : isAwarenessMeditation
+                        ? 'The session guides you to slow down, look at what is happening internally, and separate the raw facts from the story, emotion, or impulse attached to them.'
+                        : isEmotionalMeditation
+                        ? 'The session moves gently. You will be guided to pause, breathe, locate the feeling in the body, and let it become easier to hold without being overwhelmed by it.'
+                        : isFocusMeditation
                         ? 'The session moves at a gentle, structured pace. You will be guided to release excess mental noise, return to a simple anchor, and create enough space for attention to feel less forced.'
                         : 'The session moves slowly. You will be guided to notice your breath, soften unnecessary tension, and return to a simple physical anchor whenever the mind begins to wander.'}
                     </p>
                     <p>
-                      {isFocusMeditation
+                      {isRegulationMeditation
+                        ? 'Choose this when you want to respond with more control, especially when emotions, pressure, or habits are pulling you into reaction.'
+                        : isAwarenessMeditation
+                        ? 'Choose this when you want to understand yourself more clearly before acting, speaking, avoiding, or reacting.'
+                        : isEmotionalMeditation
+                        ? 'Choose this when you want emotional clarity without forcing yourself to feel differently right away.'
+                        : isFocusMeditation
                         ? 'Choose this when you want a smoother reset before studying, working, or returning to a task that needs steady concentration.'
                         : 'Choose this when you want less mental noise and a stronger sense of being here, in this moment, with both feet on the ground.'}
                     </p>

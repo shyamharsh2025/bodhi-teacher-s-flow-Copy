@@ -54,6 +54,70 @@ const focusDurations: Record<string, string> = {
   'grounding-and-calm': '15 min',
 };
 
+const emotionalTitles: Record<string, string> = {
+  'calm-your-anxiety': 'Calm Your Anxiety',
+  'release-stress': 'Release Stress',
+  'move-through-anger': 'Move Through Anger',
+  'ease-overthinking': 'Ease Overthinking',
+  'when-you-feel-sad': 'When You Feel Sad',
+  'work-through-frustration': 'Work Through Frustration',
+  'handle-worry': 'Handle Worry',
+  'overcome-self-doubt': 'Overcome Self-Doubt',
+  'release-guilt': 'Release Guilt',
+  'feel-misunderstood': 'When You Feel Misunderstood',
+  'feel-judged': 'When You Feel Judged',
+  'handle-expectations': 'Handle Expectations',
+};
+
+const emotionalDurations: Record<string, string> = {
+  'calm-your-anxiety': '14 min',
+  'release-stress': '13 min',
+  'move-through-anger': '16 min',
+  'ease-overthinking': '12 min',
+  'when-you-feel-sad': '15 min',
+  'work-through-frustration': '13 min',
+  'handle-worry': '12 min',
+  'overcome-self-doubt': '14 min',
+  'release-guilt': '16 min',
+  'feel-misunderstood': '13 min',
+  'feel-judged': '12 min',
+  'handle-expectations': '15 min',
+};
+
+const awarenessTitles: Record<string, string> = {
+  'mind-decode': 'Mind Decode',
+  'objective-observer': 'The Objective Observer',
+  'know-your-patterns': 'Know Your Patterns',
+  'pause-before-you-react': 'Pause Before You React',
+  'build-self-awareness': 'Build Self-Awareness',
+};
+
+const awarenessDurations: Record<string, string> = {
+  'mind-decode': '12 min',
+  'objective-observer': '14 min',
+  'know-your-patterns': '13 min',
+  'pause-before-you-react': '10 min',
+  'build-self-awareness': '15 min',
+};
+
+const regulationTitles: Record<string, string> = {
+  'master-your-mind': 'Master Your Mind',
+  'regulate-anger': 'Regulate Anger',
+  'release-and-let-go': 'Release & Let Go',
+  'build-inner-peace': 'Build Inner Peace',
+  'strengthen-emotional-control': 'Strengthen Emotional Control',
+  'respond-dont-react': "Respond, Don't React",
+};
+
+const regulationDurations: Record<string, string> = {
+  'master-your-mind': '15 min',
+  'regulate-anger': '14 min',
+  'release-and-let-go': '13 min',
+  'build-inner-peace': '16 min',
+  'strengthen-emotional-control': '15 min',
+  'respond-dont-react': '12 min',
+};
+
 const playerActions = [
   { label: 'Share', icon: Share2 },
   { label: 'Download', icon: Download },
@@ -64,17 +128,40 @@ const playerActions = [
 
 export default function ChakraMeditationPlayerScreen() {
   const navigate = useNavigate();
-  const { chakra, focus } = useParams();
+  const { chakra, focus, emotional, awareness, regulation } = useParams();
   const [isPlaying, setIsPlaying] = useState(true);
   const isFocusMeditation = Boolean(focus);
-  const meditationSlug = focus ?? chakra ?? 'root';
-  const title = isFocusMeditation
-    ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
-    : chakraTitles[meditationSlug] ?? chakraTitles.root;
-  const duration = isFocusMeditation
-    ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
-    : chakraDurations[meditationSlug] ?? chakraDurations.root;
-  const categoryLabel = isFocusMeditation ? 'Guided focus meditation' : 'Guided chakra meditation';
+  const isEmotionalMeditation = Boolean(emotional);
+  const isAwarenessMeditation = Boolean(awareness);
+  const isRegulationMeditation = Boolean(regulation);
+  const meditationSlug = regulation ?? awareness ?? emotional ?? focus ?? chakra ?? 'root';
+  const title = isRegulationMeditation
+    ? regulationTitles[meditationSlug] ?? regulationTitles['master-your-mind']
+    : isAwarenessMeditation
+      ? awarenessTitles[meditationSlug] ?? awarenessTitles['mind-decode']
+      : isEmotionalMeditation
+      ? emotionalTitles[meditationSlug] ?? emotionalTitles['calm-your-anxiety']
+      : isFocusMeditation
+      ? focusTitles[meditationSlug] ?? focusTitles['nsdr-quick-reset']
+      : chakraTitles[meditationSlug] ?? chakraTitles.root;
+  const duration = isRegulationMeditation
+    ? regulationDurations[meditationSlug] ?? regulationDurations['master-your-mind']
+    : isAwarenessMeditation
+      ? awarenessDurations[meditationSlug] ?? awarenessDurations['mind-decode']
+      : isEmotionalMeditation
+      ? emotionalDurations[meditationSlug] ?? emotionalDurations['calm-your-anxiety']
+      : isFocusMeditation
+      ? focusDurations[meditationSlug] ?? focusDurations['nsdr-quick-reset']
+      : chakraDurations[meditationSlug] ?? chakraDurations.root;
+  const categoryLabel = isRegulationMeditation
+    ? 'Guided regulation meditation'
+    : isAwarenessMeditation
+      ? 'Guided awareness meditation'
+      : isEmotionalMeditation
+    ? 'Guided emotional meditation'
+    : isFocusMeditation
+      ? 'Guided focus meditation'
+      : 'Guided chakra meditation';
 
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-md overflow-hidden bg-[#EEF2FF] text-[#25263A]">

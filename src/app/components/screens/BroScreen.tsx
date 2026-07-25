@@ -8,6 +8,95 @@ interface Message {
   text: string;
   sender: 'user' | 'bro';
   timestamp: Date;
+  recommendation?: Recommendation;
+}
+
+interface Recommendation {
+  title: string;
+  playlist: string;
+  route: string;
+  cta: string;
+}
+
+interface RecommendationMatch extends Recommendation {
+  response: string;
+}
+
+const recommendations: Array<{
+  test: RegExp;
+  title: string;
+  playlist: string;
+  route: string;
+  cta: string;
+  response: string;
+}> = [
+  {
+    test: /\b(discipline|self[-\s]?discipline|consistent|consistency|willpower)\b/i,
+    title: 'Master Your Mind',
+    playlist: 'Regulation & Control',
+    route: '/home/regulation-control/master-your-mind',
+    cta: 'Start Master Your Mind',
+    response:
+      "Hey Anusha, if you're trying to build discipline, Master Your Mind is the right practice. It does not ask you to control every thought; it helps you direct attention and choose your response with more steadiness.",
+  },
+  {
+    test: /\b(communicat(e|ion)|speak|speaking|voice|express|confident|confidence|self[-\s]?expression)\b/i,
+    title: 'Throat Chakra Meditation',
+    playlist: 'Chakra Reset Series',
+    route: '/home/chakra-meditation/throat',
+    cta: 'Open Throat Chakra',
+    response:
+      "Hey Anusha, if you want to communicate better or feel more confident expressing yourself, Throat Chakra Meditation is a good fit. It is built around voice, expression, and speaking from a calmer place.",
+  },
+  {
+    test: /\b(study|studying|study session|prepare|prep|revision|homework|assignment|exam)\b/i,
+    title: 'NSDR Quick Reset',
+    playlist: 'Focus & Concentration',
+    route: '/home/focus-concentration/nsdr-quick-reset',
+    cta: 'Start NSDR Quick Reset',
+    response:
+      "Hey Anusha, if you're preparing for a study session, NSDR Quick Reset is a smart start. It gives your mind a short recovery window so you can enter the session clearer and less scattered.",
+  },
+  {
+    test: /\b(tired|tied|exhausted|drained|fatigued|low energy|burnt out|burned out|sleepy)\b/i,
+    title: 'NSDR Deep Recovery',
+    playlist: 'Focus & Concentration',
+    route: '/home/focus-concentration/nsdr-deep-recovery',
+    cta: 'Start NSDR Deep Recovery',
+    response:
+      "Hey Anusha, if you're feeling tired, NSDR Deep Recovery is the better reset. It helps your nervous system recover without asking you to push harder.",
+  },
+  {
+    test: /\b(sleep|sleep better|can't sleep|insomnia|rest|bed|wind down)\b/i,
+    title: 'Yog Nidra',
+    playlist: 'Focus & Concentration',
+    route: '/home/focus-concentration/yog-nidra',
+    cta: 'Start Yog Nidra',
+    response:
+      "Hey Anusha, if you want to sleep better, Yog Nidra is the one I would pick. It helps the body downshift and gives the mind a softer landing before rest.",
+  },
+  {
+    test: /\b(clarity|clear mind|confused|direction|insight|perspective|clearer)\b/i,
+    title: 'Third Eye Chakra Meditation',
+    playlist: 'Chakra Reset Series',
+    route: '/home/chakra-meditation/third-eye',
+    cta: 'Open Third Eye Chakra',
+    response:
+      "Hey Anusha, if you're looking for clarity, Third Eye Chakra Meditation fits beautifully. It is a calmer way to step back, notice what matters, and find a clearer perspective.",
+  },
+  {
+    test: /\b(anxious|anxiety|nervous|uneasy|panic|racing thoughts|tense)\b/i,
+    title: 'Calm Your Anxiety',
+    playlist: 'Emotional Wellbeing',
+    route: '/home/emotional-wellbeing/calm-your-anxiety',
+    cta: 'Try Calm Your Anxiety',
+    response:
+      "Hey Anusha, if you're feeling anxious, Calm Your Anxiety is where I would start. It helps you slow the body down, notice the feeling, and create a little room around the racing thoughts.",
+  },
+];
+
+function findRecommendation(text: string): RecommendationMatch | null {
+  return recommendations.find((item) => item.test.test(text)) ?? null;
 }
 
 export default function BroScreen() {
@@ -15,6 +104,7 @@ export default function BroScreen() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const showIntentPills = messages.length === 0 && !inputValue.trim();
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
@@ -38,13 +128,25 @@ export default function BroScreen() {
     // Clear input
     setInputValue('');
 
+    const match = findRecommendation(text);
+
     // Bro response after a short delay
     setTimeout(() => {
       const broMessage: Message = {
         id: Date.now() + 1,
-        text: 'How much time do you have?',
+        text:
+          match?.response ??
+          "Hey Anusha, I hear you. Tell me what you want help with: discipline, confidence, study prep, tiredness, sleep, clarity, or anxiety, and I'll point you to the right practice.",
         sender: 'bro',
         timestamp: new Date(),
+        recommendation: match
+          ? {
+              title: match.title,
+              playlist: match.playlist,
+              route: match.route,
+              cta: match.cta,
+            }
+          : undefined,
       };
       setMessages((prev) => [...prev, broMessage]);
     }, 800);
@@ -60,44 +162,8 @@ export default function BroScreen() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-[#E8ECFE] to-[#F5F7FF] relative">
+    <div className="h-screen overflow-hidden flex flex-col bg-gradient-to-b from-[#E8ECFE] to-[#F5F7FF] relative">
       <style>{`
-        @keyframes bro-orb-float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
-
-        @keyframes bro-orb-breathe {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.035); }
-        }
-
-        @keyframes bro-orb-glow {
-          0%, 100% { opacity: 0.62; transform: scale(0.96); }
-          50% { opacity: 0.92; transform: scale(1.06); }
-        }
-
-        @keyframes bro-orb-sheen {
-          0%, 100% { transform: translate(-8px, -8px) scale(1); opacity: 0.78; }
-          50% { transform: translate(8px, 8px) scale(1.08); opacity: 0.95; }
-        }
-
-        .bro-orb-character {
-          animation: bro-orb-float 4.8s ease-in-out infinite;
-        }
-
-        .bro-orb-shell {
-          animation: bro-orb-breathe 5.2s ease-in-out infinite;
-        }
-
-        .bro-orb-ambient {
-          animation: bro-orb-glow 4s ease-in-out infinite;
-        }
-
-        .bro-orb-sheen {
-          animation: bro-orb-sheen 6s ease-in-out infinite;
-        }
-
         .chat-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
@@ -114,15 +180,91 @@ export default function BroScreen() {
         .chat-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(91, 79, 219, 0.5);
         }
+
+        .chat-fade-mask {
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0,
+            rgba(0, 0, 0, 0.18) 12px,
+            rgba(0, 0, 0, 0.72) 40px,
+            #000 68px
+          );
+          mask-image: linear-gradient(
+            to bottom,
+            transparent 0,
+            rgba(0, 0, 0, 0.18) 12px,
+            rgba(0, 0, 0, 0.72) 40px,
+            #000 68px
+          );
+        }
+
+        .liquid-glass {
+          background:
+            radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.92), transparent 34%),
+            radial-gradient(circle at 88% 86%, rgba(142, 199, 255, 0.28), transparent 42%),
+            linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(205, 196, 255, 0.38) 54%, rgba(255, 255, 255, 0.48));
+          border: 1px solid rgba(255, 255, 255, 0.82);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.96),
+            inset 0 -1px 0 rgba(108, 93, 208, 0.12),
+            0 10px 26px rgba(84, 75, 187, 0.13),
+            0 2px 7px rgba(95, 82, 197, 0.08);
+          backdrop-filter: blur(22px) saturate(165%);
+          -webkit-backdrop-filter: blur(22px) saturate(165%);
+        }
+
+        .liquid-glass-button {
+          cursor: pointer;
+          transition: background 200ms ease, box-shadow 200ms ease;
+        }
+
+        .liquid-glass-button:hover {
+          background:
+            radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.98), transparent 36%),
+            radial-gradient(circle at 88% 86%, rgba(142, 199, 255, 0.34), transparent 44%),
+            linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(194, 183, 255, 0.46) 54%, rgba(255, 255, 255, 0.58));
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 1),
+            inset 0 -1px 0 rgba(108, 93, 208, 0.14),
+            0 12px 28px rgba(84, 75, 187, 0.17),
+            0 2px 7px rgba(95, 82, 197, 0.10);
+        }
+
+        .liquid-glass-primary {
+          background:
+            radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.48), transparent 32%),
+            radial-gradient(circle at 82% 88%, rgba(91, 190, 255, 0.38), transparent 44%),
+            linear-gradient(135deg, rgba(91, 79, 219, 0.92), rgba(124, 58, 237, 0.78));
+          border: 1px solid rgba(255, 255, 255, 0.58);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.58),
+            inset 0 -2px 4px rgba(45, 32, 120, 0.20),
+            0 9px 22px rgba(91, 79, 219, 0.32);
+          backdrop-filter: blur(18px) saturate(170%);
+          -webkit-backdrop-filter: blur(18px) saturate(170%);
+        }
+
+        .liquid-glass-primary:hover {
+          background:
+            radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.56), transparent 34%),
+            radial-gradient(circle at 82% 88%, rgba(91, 190, 255, 0.44), transparent 46%),
+            linear-gradient(135deg, rgba(83, 70, 211, 0.96), rgba(114, 49, 226, 0.84));
+        }
+
+        .liquid-glass-tail {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(216, 207, 255, 0.58));
+        }
       `}</style>
 
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-4 pb-4 relative z-30">
-        <button onClick={() => navigate(-1)} className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center">
+        <button onClick={() => navigate(-1)} className="liquid-glass liquid-glass-button w-10 h-10 rounded-full flex items-center justify-center">
           <ArrowLeft className="w-5 h-5 text-[#5B4FDB]" />
         </button>
-        <h1 className="text-[20px] font-bold text-[#5B4FDB]">Bro</h1>
-        <button className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm flex items-center justify-center">
+        <h1 className="bg-[linear-gradient(135deg,#3F35B5_0%,#6D52E8_62%,#3B82F6_100%)] bg-clip-text text-[28px] font-black leading-none tracking-[-0.065em] text-transparent drop-shadow-[0_2px_8px_rgba(91,79,219,0.16)]">
+          Bro
+        </h1>
+        <button className="liquid-glass liquid-glass-button w-10 h-10 rounded-full flex items-center justify-center">
           <Menu className="w-5 h-5 text-[#5B4FDB]" />
         </button>
       </div>
@@ -130,24 +272,18 @@ export default function BroScreen() {
       {/* Fixed Bro character orb */}
       <div className="fixed top-[86px] left-1/2 -translate-x-1/2 z-20 pointer-events-none">
         <div className="relative flex w-[320px] flex-col items-center">
-          <div className="bro-orb-character relative flex h-[228px] w-[228px] items-center justify-center">
-            <div className="bro-orb-ambient absolute inset-[-30px] rounded-full bg-[radial-gradient(circle,rgba(88,64,212,0.30)_0%,rgba(122,112,255,0.19)_36%,rgba(104,152,249,0.08)_62%,transparent_76%)] blur-[30px]" />
-            <div className="absolute inset-[20px] rounded-full bg-[rgba(88,64,212,0.18)] blur-[26px]" />
-
-            <div className="bro-orb-shell relative h-[180px] w-[180px] overflow-hidden rounded-full bg-gradient-to-br from-[#E7E4FF] via-[#BDB7FF] to-[#8F86FF] p-2 shadow-[inset_0px_2px_0px_rgba(255,255,255,0.88),inset_0px_-18px_34px_rgba(49,42,130,0.18),0px_20px_42px_rgba(84,75,187,0.24)]">
-              <div className="absolute inset-2 rounded-full bg-[rgba(88,64,212,0.20)] blur-[18px]" />
-              <div className="relative h-full w-full rounded-full bg-[radial-gradient(circle_at_42%_34%,rgba(255,255,255,0.96)_0%,rgba(154,148,255,0.50)_18%,rgba(88,64,212,0.18)_52%,rgba(47,49,130,0.10)_100%)]">
-                <VoicePoweredOrb enableVoiceControl={false} className="scale-[1.38]" />
-              </div>
-              <div className="pointer-events-none absolute inset-3 rounded-full border border-white/48" />
-              <div className="bro-orb-sheen pointer-events-none absolute left-8 top-7 h-14 w-14 rounded-full bg-white/38 blur-[11px]" />
-              <div className="pointer-events-none absolute right-8 top-11 h-6 w-6 rounded-full bg-white/44 blur-[5px]" />
-              <div className="pointer-events-none absolute inset-x-9 bottom-5 h-5 rounded-full bg-[#2F3182]/12 blur-[8px]" />
-            </div>
+          <div className="relative h-[228px] w-[228px]">
+            <div className="pointer-events-none absolute inset-[5%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.72)_0%,rgba(134,196,255,0.22)_30%,rgba(88,64,212,0.22)_54%,transparent_74%)] blur-2xl" />
+            <div className="pointer-events-none absolute inset-[14%] rounded-full bg-[#05091F]/[0.04] blur-xl" />
+            <VoicePoweredOrb
+              variant="energySphere"
+              enableVoiceControl={false}
+              className="relative z-10"
+            />
           </div>
 
-          <div className="-mt-4 relative rounded-[24px] border border-white/75 bg-white/72 px-7 py-4 text-center shadow-[inset_0px_1px_0px_rgba(255,255,255,0.95),0px_12px_28px_rgba(84,75,187,0.10)] backdrop-blur-md">
-            <div className="absolute left-1/2 top-[-7px] h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-white/75 bg-white/72" />
+          <div className="liquid-glass -mt-1 relative rounded-[24px] px-7 py-4 text-center">
+            <div className="liquid-glass-tail absolute left-1/2 top-[-7px] h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-white/80" />
             <h2 className="relative text-[24px] font-bold text-[#2D2E34] leading-8" style={{ fontFamily: 'Inter, sans-serif' }}>
               Hello Anusha
             </h2>
@@ -161,7 +297,7 @@ export default function BroScreen() {
       {/* Scrollable Chat Area */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto px-6 pb-[400px] pt-[372px] chat-scrollbar relative z-10"
+        className={`mt-[330px] min-h-0 flex-1 overflow-y-auto px-6 pt-4 ${showIntentPills ? 'pb-[400px]' : 'pb-[132px]'} chat-scrollbar chat-fade-mask relative z-10`}
       >
         {messages.map((message) => (
           <div
@@ -176,6 +312,22 @@ export default function BroScreen() {
               } shadow-sm`}
             >
               <p className="text-[15px]">{message.text}</p>
+              {message.recommendation && (
+                <button
+                  onClick={() => navigate(message.recommendation!.route)}
+                  className="mt-4 w-full rounded-[22px] border border-[#DCD6FF] bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(244,242,255,0.94)_100%)] p-3.5 text-left shadow-[0px_12px_26px_rgba(84,75,187,0.14)] active:scale-[0.98] transition-transform"
+                >
+                  <span className="block text-[12px] font-extrabold uppercase tracking-[0.08em] text-[#8171F2]">
+                    {message.recommendation.playlist}
+                  </span>
+                  <span className="mt-1 block text-[17px] font-extrabold leading-6 text-[#2D2E34]">
+                    {message.recommendation.title}
+                  </span>
+                  <span className="mt-3 inline-flex h-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,#8171F2_0%,#5840D4_58%,#3B82F6_100%)] px-4 text-[13px] font-extrabold text-white shadow-[0px_10px_20px_rgba(84,75,187,0.28)]">
+                    {message.recommendation.cta}
+                  </span>
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -183,57 +335,61 @@ export default function BroScreen() {
 
       {/* Fixed Bottom Section - Buttons and Input */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#F5F7FF] via-[#F5F7FF] to-transparent px-6 pt-4 pb-6 space-y-3 z-30">
-        {/* Action Buttons - 2x3 Grid */}
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => handleButtonClick('Calm Down')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <Wind className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Calm Down</span>
-          </button>
-          <button
-            onClick={() => handleButtonClick('Focus Up')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <Zap className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Focus Up</span>
-          </button>
-        </div>
+        {showIntentPills && (
+          <>
+            {/* Action Buttons - 2x3 Grid */}
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => handleButtonClick('I feel anxious')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <Wind className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Anxious</span>
+              </button>
+              <button
+                onClick={() => handleButtonClick('I want to prepare for a study session')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <Zap className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Study Prep</span>
+              </button>
+            </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => handleButtonClick('Just Venting')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <MessageSquare className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Just Venting</span>
-          </button>
-          <button
-            onClick={() => handleButtonClick('Unsure')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <HelpCircle className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Unsure</span>
-          </button>
-        </div>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => handleButtonClick('I want to communicate better')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <MessageSquare className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Communicate</span>
+              </button>
+              <button
+                onClick={() => handleButtonClick('I want clarity')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <HelpCircle className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Clarity</span>
+              </button>
+            </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => handleButtonClick('Nap Down')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <Moon className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Nap Down</span>
-          </button>
-          <button
-            onClick={() => handleButtonClick('Post Reset')}
-            className="px-5 py-3.5 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center gap-2.5 shadow-sm hover:bg-white/80 transition-colors"
-          >
-            <RotateCcw className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
-            <span className="text-[15px] font-semibold text-gray-800">Post Reset</span>
-          </button>
-        </div>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => handleButtonClick('I am tired')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <Moon className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Tired</span>
+              </button>
+              <button
+                onClick={() => handleButtonClick('I want to build discipline')}
+                className="liquid-glass liquid-glass-button px-5 py-3.5 rounded-full flex items-center justify-center gap-2.5"
+              >
+                <RotateCcw className="w-5 h-5 text-[#5B4FDB]" strokeWidth={2} />
+                <span className="text-[15px] font-semibold text-gray-800">Discipline</span>
+              </button>
+            </div>
+          </>
+        )}
 
         {/* Input Field */}
         <form onSubmit={handleInputSubmit} className="relative pt-1">
@@ -246,7 +402,7 @@ export default function BroScreen() {
           />
           <button
             type="submit"
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#5B4FDB] flex items-center justify-center shadow-lg hover:bg-[#4F46E5] transition-colors"
+            className="liquid-glass-primary liquid-glass-button absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center"
           >
             {inputValue ? (
               <Send className="w-5 h-5 text-white" />
