@@ -57,7 +57,8 @@ export default function RootLayout() {
     !location.pathname.includes('/focus-timer') &&
     !location.pathname.includes('/breathwork-prep') &&
     !location.pathname.includes('/meditation-prep') &&
-    !location.pathname.includes('/focus-complete');
+    !location.pathname.includes('/focus-complete') &&
+    !location.pathname.includes('/dopa-meter');
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     swipeStartRef.current = {
