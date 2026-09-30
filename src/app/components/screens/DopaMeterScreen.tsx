@@ -1352,14 +1352,30 @@ function InnerPulseWave({
         const layerFrequency = frequency + (index - 2.5) * 0.09;
         const thickness = 21 + (5 - index) * 1.7;
         const phases = [index * 0.44, index * 0.44 + 0.68, index * 0.44 + 1.36];
+        const trailOffsets = [0.16 + tension * 0.08, 0.34 + tension * 0.12];
         return {
           paths: phases.map((phaseShift) => buildPulseRibbon(640, base, layerAmplitude, layerFrequency, phaseShift, thickness, layerSeed)),
           lines: phases.map((phaseShift) => buildPulseLine(640, base - thickness * 0.2, layerAmplitude, layerFrequency, phaseShift, layerSeed)),
+          trails: trailOffsets.map((trailOffset, trailIndex) =>
+            phases.map((phaseShift) =>
+              buildPulseRibbon(
+                640,
+                base + 3 + trailIndex * 3.5,
+                layerAmplitude * (1 - trailIndex * 0.04),
+                layerFrequency,
+                phaseShift - trailOffset,
+                thickness * (1.18 + trailIndex * 0.24),
+                layerSeed + trailIndex * 0.1,
+              ),
+            ),
+          ),
           opacity: 0.22 + index * 0.07,
         };
       }),
-    [amplitude, frequency],
+    [amplitude, frequency, tension],
   );
+
+  const trailOpacity = 0.13 + tension * 0.09;
 
   return (
     <div
@@ -1408,7 +1424,30 @@ function InnerPulseWave({
             <feGaussianBlur stdDeviation="2.2" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
+          <filter id={`pulse-trail-${id}`} x="-35%" y="-85%" width="170%" height="270%">
+            <feGaussianBlur stdDeviation="5.6" />
+          </filter>
         </defs>
+        {ribbons.map((ribbon, index) =>
+          index % 2 === 0
+            ? ribbon.trails.map((trail, trailIndex) => (
+                <motion.path
+                  key={`trail-${index}-${trailIndex}`}
+                  d={trail[0]}
+                  animate={reduceMotion ? undefined : { d: [...trail, trail[0]] }}
+                  transition={{
+                    duration: speed + index * 0.46 + trailIndex * 0.38,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: -(trailIndex + 1) * 0.32,
+                  }}
+                  fill={`url(#pulse-${id})`}
+                  opacity={trailOpacity * (1 - trailIndex * 0.38)}
+                  filter={trailIndex === 1 ? `url(#pulse-trail-${id})` : undefined}
+                />
+              ))
+            : null,
+        )}
         {ribbons.map((ribbon, index) => (
           <g key={index}>
             <motion.path
